@@ -1,0 +1,24 @@
+# impostazioni locali di Claude Code / editor
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# chiavi e configurazioni private (backend futuro)
+.env
+.env.*
+*.key
+
+# dipendenze e build (Electron / backend futuri)
+node_modules/
+dist/
+out/
+release/
+
+# registrazioni e musica di prova
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.aiff
+recordings/

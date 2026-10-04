@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gravity Touch — Regia LIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060a;--panel:#0e1018;--line:#1d2130;--pink:#fe2c55;--cyan:#25f4ee;--text:#e9ecf5;--dim:#7a8199}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:1fr 340px;height:100%}
+#stageWrap{display:flex;align-items:center;justify-content:center;padding:16px}
+#stage{position:relative;height:100%;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#000;
+  box-shadow:-6px 0 0 var(--cyan),6px 0 0 var(--pink)}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#cam{display:none}
+#topBar{position:absolute;top:12px;left:12px;display:flex;gap:8px;z-index:3}
+.badge{background:var(--pink);font:800 11px Unbounded;padding:4px 8px;border-radius:6px}
+.brand{background:rgba(0,0,0,.5);font:500 11px Unbounded;padding:4px 8px;border-radius:6px}
+/* Chat: mostra SOLO eventi reali ricevuti da TikTok */
+#chat{position:absolute;left:12px;top:46px;width:70%;max-height:30%;overflow:hidden;display:flex;flex-direction:column;
+  justify-content:flex-end;gap:4px;z-index:3;mask-image:linear-gradient(transparent,#000 30%)}
+.msg{font-size:13px;line-height:1.35;background:rgba(0,0,0,.4);padding:4px 8px;border-radius:10px;width:fit-content;animation:in .25s ease-out}
+.msg b{color:var(--cyan);font-weight:600;margin-right:4px}
+.msg.gift b{color:var(--pink)}
+@keyframes in{from{transform:translateX(-12px);opacity:0}}
+#banner{position:absolute;top:34%;left:50%;transform:translateX(-50%) scale(0);z-index:4;font:800 22px Unbounded;
+  text-align:center;text-shadow:0 0 18px var(--pink);transition:transform .2s;white-space:nowrap}
+#banner.show{transform:translateX(-50%) scale(1)}
+#flash{position:absolute;inset:0;pointer-events:none;z-index:5;opacity:0;mix-blend-mode:screen}
+#stage.glitch{animation:glitch .35s steps(2) 2}
+@keyframes glitch{25%{transform:translate(-6px,3px) skewX(4deg);filter:hue-rotate(90deg) saturate(3)}
+  50%{transform:translate(5px,-2px);filter:drop-shadow(-4px 0 var(--cyan)) drop-shadow(4px 0 var(--pink))}
+  75%{transform:translate(-3px,-4px) skewX(-6deg)}}
+#side{background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;overflow:auto}
+#side h1{font:800 18px Unbounded;padding:16px 16px 4px}
+#side h1 span{color:var(--cyan)}
+.sec{padding:10px 16px;border-bottom:1px solid var(--line)}
+.sec h2{font:500 12px Unbounded;color:var(--dim);margin-bottom:8px}
+.st{font-size:12px;margin-bottom:6px;color:var(--dim)} .st.ok{color:var(--cyan)} .st.err{color:var(--pink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+button,input[type=text]{background:#161a26;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 6px;font:600 12px Manrope}
+button{cursor:pointer} button:hover{border-color:var(--cyan)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+button.learning{border-color:var(--pink);background:#2a0f17}
+.wide{width:100%;margin-top:6px} input[type=text]{width:100%}
+input[type=file]{font-size:12px;color:var(--dim);width:100%}
+label.row{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:6px}
+input[type=range]{width:100%;accent-color:var(--pink)}
+#log{flex:1;min-height:120px;overflow:auto;font:12px ui-monospace,Consolas,monospace;padding:4px 16px 12px}
+#log div{padding:2px 0;border-bottom:1px dashed #171b27;color:#aab} #log .a{color:var(--cyan)} #log .b{color:var(--pink)}
+@media (max-width:820px){#app{grid-template-columns:1fr}#side{display:none}}
+@media (prefers-reduced-motion:reduce){#stage.glitch{animation:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stageWrap">
+    <div id="stage">
+      <canvas id="cv"></canvas>
+      <video id="cam" playsinline muted></video>
+      <div id="topBar"><span class="badge">LIVE</span><span class="brand">Gravity Touch</span></div>
+      <div id="chat"></div>
+      <div id="banner"></div>
+      <div id="flash"></div>
+    </div>
+  </div>
+
+  <aside id="side">
+    <h1>Gravity <span>Touch</span></h1>
+
+    <div class="sec">
+      <h2>Mani (webcam)</h2>
+      <div class="st" id="handSt">Spenta. Pizzica pollice e indice per premere i pad o afferrare i regali.</div>
+      <button class="wide" id="btnHands">Attiva mani</button>
+    </div>
+
+    <div class="sec">
+      <h2>Musica</h2>
+      <input type="file" id="files" accept="audio/*" multiple>
+      <div class="st" id="track" style="margin-top:6px">Nessun brano caricato</div>
+      <button class="wide" id="btnDir">Apri cartella del PC</button>
+    </div>
+
+    <div class="sec">
+      <h2>Console MIDI</h2>
+      <div class="st" id="midiSt">Non collegata</div>
+      <button class="wide" id="btnMidi">Collega console</button>
+    </div>
+
+    <div class="sec">
+      <h2>Regia (tasto destro = assegna a un controllo MIDI)</h2>
+      <div class="grid" id="btns"></div>
+      <label class="row">Gravità <span id="gv">1.0</span></label>
+      <input type="range" id="grav" min="0" max="3" step="0.05" value="1">
+      <label class="row">Inclinazione <span id="tv">0</span></label>
+      <input type="range" id="tilt" min="-1" max="1" step="0.02" value="0">
+    </div>
+
+    <div class="sec">
+      <h2>Eventi TikTok reali</h2>
+      <div class="st" id="wsSt">Non collegato</div>
+      <input type="text" id="wsUrl" value="ws://localhost:21213">
+      <button class="wide" id="btnWs">Collega eventi</button>
+    </div>
+
+    <div class="sec" style="border:0;padding-bottom:0"><h2>Log</h2></div>
+    <div id="log"></div>
+  </aside>
+</div>
+
+<script type="module">
+import { FilesetResolver, HandLandmarker } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
+const $ = id => document.getElementById(id);
+
+/* ================= CONFIG ================= */
+const GIFTS = [
+  {id:'rosa',emoji:'🌹',name:'Rosa',r:22,color:'#fe2c55'},
+  {id:'cuore',emoji:'💖',name:'Cuore',r:24,color:'#ff5fa2'},
+  {id:'ciambella',emoji:'🍩',name:'Ciambella',r:26,color:'#ffb347'},
+  {id:'leone',emoji:'🦁',name:'Leone',r:46,color:'#ffd23f'},
+  {id:'galassia',emoji:'🌌',name:'Galassia',r:40,color:'#25f4ee'},
+  {id:'razzo',emoji:'🚀',name:'Razzo',r:34,color:'#9d7bff'},
+];
+// Nomi dei regali TikTok (inglese) -> regalo locale
+const ALIASES = {rose:'rosa',heart:'cuore',donut:'ciambella',lion:'leone',galaxy:'galassia',rocket:'razzo'};
+// Console virtuale sullo schermo: 2 righe x 4 pad
+const PAD_DEFS = [
+  {icon:'🌹',sub:'Rosa',action:'gift:rosa'},   {icon:'💖',sub:'Cuore',action:'gift:cuore'},
+  {icon:'🦁',sub:'Leone',action:'gift:leone'}, {icon:'🌌',sub:'Galassia',action:'gift:galassia'},
+  {icon:'▶',sub:'Musica',action:'music:toggle'},{icon:'📂',sub:'Libreria',action:'lib:toggle'},
+  {icon:'💥',sub:'Boom',action:'fx:boom'},     {icon:'⚡',sub:'Glitch',action:'fx:glitch'},
+];
+
+/* ================= FISICA ================= */
+const cv=$('cv'), ctx=cv.getContext('2d'), DPR=devicePixelRatio||1;
+let W, H, floorY;
+const bodies=[], particles=[], pads=[];
+const world={g:1,tilt:0,zeroG:false};
+
+function resize(){
+  const r=cv.getBoundingClientRect(); W=r.width; H=r.height;
+  cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+  floorY=H*0.74;                                   // i regali si posano sopra la console
+  const gap=8, top=floorY+12, ph=(H-top-14-gap)/2, pw=(W-24-gap*3)/4;
+  pads.length=0;
+  PAD_DEFS.forEach((d,i)=>pads.push({...d,x:12+(i%4)*(pw+gap),y:top+Math.floor(i/4)*(ph+gap),w:pw,h:ph,glow:0}));
+  if(lib.stack.length) layoutHolo();
+}
+addEventListener('resize',resize);
+
+function spawn(gift,x){
+  const s=W/400;
+  bodies.push({...gift,r:gift.r*s,x:x??W*(0.15+Math.random()*0.7),y:-50,
+    vx:(Math.random()-.5)*4,vy:Math.random()*2,rot:0,vr:(Math.random()-.5)*.2,m:gift.r*gift.r,held:false});
+  if(bodies.length>80) bodies.shift();
+}
+
+function step(){
+  const g=world.zeroG?0:0.35*world.g;
+  for(const b of bodies){
+    if(b.held) continue;
+    b.vx+=world.tilt*.35; b.vy+=g; b.vx*=.995; b.vy*=.995;
+    b.x+=b.vx; b.y+=b.vy; b.rot+=b.vr;
+    if(b.x<b.r){b.x=b.r;b.vx=-b.vx*.7}
+    if(b.x>W-b.r){b.x=W-b.r;b.vx=-b.vx*.7}
+    if(b.y>floorY-b.r){b.y=floorY-b.r;b.vy=-b.vy*.6;b.vx*=.92;b.vr*=.9;
+      if(Math.abs(b.vy)>4) burst(b.x,floorY,b.color,4)}
+    if(b.y<b.r&&world.zeroG){b.y=b.r;b.vy=-b.vy*.7}
+  }
+  // Collisioni tra regali
+  for(let i=0;i<bodies.length;i++)for(let j=i+1;j<bodies.length;j++){
+    const a=bodies[i],b=bodies[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),min=a.r+b.r;
+    if(d>0&&d<min){
+      const nx=dx/d,ny=dy/d,ov=(min-d)/2;
+      if(!a.held){a.x-=nx*ov;a.y-=ny*ov} if(!b.held){b.x+=nx*ov;b.y+=ny*ov}
+      const rel=(b.vx-a.vx)*nx+(b.vy-a.vy)*ny;
+      if(rel<0){const imp=-(1.8*rel)/(1/a.m+1/b.m);
+        a.vx-=imp*nx/a.m;a.vy-=imp*ny/a.m;b.vx+=imp*nx/b.m;b.vy+=imp*ny/b.m}
+    }
+  }
+  // Le dita (mano aperta) spingono i regali
+  for(const c of hands){ if(!c.on||c.pinch) continue;
+    for(const b of bodies){ const dx=b.x-c.x,dy=b.y-c.y,d=Math.hypot(dx,dy)||1,min=b.r+20;
+      if(d<min){b.x+=dx/d*(min-d);b.y+=dy/d*(min-d);b.vx+=dx/d*2+c.vx*.3;b.vy+=dy/d*2+c.vy*.3}}}
+  for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.l-=.02;if(p.l<=0)particles.splice(i,1)}
+}
+function burst(x,y,color,n=40){
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=2+Math.random()*7;
+    particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,l:1,c:Math.random()<.5?color:'#25f4ee'})}
+}
+
+/* ================= CURSORI: mani + mouse/touch ================= */
+const hands=[], ptr={x:0,y:0,vx:0,vy:0,on:false,pinch:false,grab:null};
+const cursors=()=>[...hands,ptr];
+const inside=(c,p)=>c.x>p.x&&c.x<p.x+p.w&&c.y>p.y&&c.y<p.y+p.h;
+
+function press(c){                                  // "tocco": pad o presa di un regalo
+  if(lib.open){const k=holoCards.find(k=>inside(c,k));if(k){k.glow=1;libPick(k);return true}}
+  const p=pads.find(p=>inside(c,p));
+  if(p){runAction(p.action);return true}
+  let best=null,bd=1e9;
+  for(const b of bodies){const d=Math.hypot(b.x-c.x,b.y-c.y);if(d<b.r*1.6&&d<bd){bd=d;best=b}}
+  if(best){c.grab=best;best.held=true;return true}
+  return false;
+}
+function release(c){ if(c.grab){c.grab.vx=c.vx*.8;c.grab.vy=c.vy*.8;c.grab.held=false;c.grab=null} }
+function dragHeld(){ for(const c of cursors()) if(c.grab){c.grab.x=c.x;c.grab.y=Math.min(c.y,floorY-c.grab.r)} }
+
+const pos=e=>{const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;ptr.vx=x-ptr.x;ptr.vy=y-ptr.y;ptr.x=x;ptr.y=y};
+cv.onpointerdown=e=>{pos(e);ptr.on=true;ptr.pinch=true;if(!press(ptr)&&ptr.y<floorY) spawnRegia(GIFTS[Math.floor(Math.random()*GIFTS.length)],ptr.x)};
+cv.onpointermove=e=>{pos(e);ptr.on=true};
+cv.onpointerup=cv.onpointerleave=()=>{ptr.pinch=false;release(ptr)};
+
+/* ================= HAND TRACKING (MediaPipe) ================= */
+const video=$('cam'); let landmarker=null,lastT=-1;
+$('btnHands').onclick=async()=>{
+  const st=$('handSt'); st.className='st'; st.textContent='Caricamento modello…';
+  try{
+    const fs=await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm');
+    landmarker=await HandLandmarker.createFromOptions(fs,{
+      baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',delegate:'GPU'},
+      runningMode:'VIDEO',numHands:2});
+    video.srcObject=await navigator.mediaDevices.getUserMedia({video:{width:1280,height:720}});
+    await video.play();
+    st.className='st ok'; st.textContent='Attiva: pizzica per premere, mano aperta per spingere';
+  }catch(err){st.className='st err';st.textContent='Errore: '+err.message}
+};
+function videoRect(){const s=Math.max(W/video.videoWidth,H/video.videoHeight),w=video.videoWidth*s,h=video.videoHeight*s;return{x:(W-w)/2,y:(H-h)/2,w,h}}
+function trackHands(){
+  if(!landmarker||video.readyState<2||video.currentTime===lastT) return;
+  lastT=video.currentTime;
+  const lms=landmarker.detectForVideo(video,performance.now()).landmarks||[], r=videoRect();
+  for(let i=0;i<2;i++){
+    const c=hands[i]||(hands[i]={x:0,y:0,vx:0,vy:0,on:false,pinch:false,grab:null}), lm=lms[i];
+    if(!lm){release(c);c.on=false;c.pinch=false;continue}
+    const tip=lm[8],th=lm[4],x=r.x+(1-tip.x)*r.w,y=r.y+tip.y*r.h;   // specchiato
+    c.vx=c.on?x-c.x:0; c.vy=c.on?y-c.y:0; c.x=x; c.y=y; c.on=true;
+    const pinch=Math.hypot(tip.x-th.x,tip.y-th.y)<0.045;
+    if(pinch&&!c.pinch) press(c);
+    if(!pinch&&c.pinch) release(c);
+    c.pinch=pinch;
+  }
+}
+
+/* ================= MUSICA + RILEVAMENTO BASSI ================= */
+const audio=new Audio(); let actx,analyser,freq,tracks=[],ti=0,url,bassAvg=0,kickCd=0;
+function ensureAudio(){ if(actx) return; actx=new AudioContext();
+  const src=actx.createMediaElementSource(audio); analyser=actx.createAnalyser(); analyser.fftSize=256;
+  freq=new Uint8Array(analyser.frequencyBinCount); src.connect(analyser); analyser.connect(actx.destination) }
+async function loadTrack(){ const t=tracks[ti], f=t.getFile?await t.getFile():t;
+  if(url) URL.revokeObjectURL(url); url=URL.createObjectURL(f); audio.src=url; $('track').textContent='♪ '+f.name }
+$('files').onchange=e=>{tracks=[...e.target.files];if(!tracks.length)return;ti=0;ensureAudio();loadTrack();log(`${tracks.length} brani caricati`,'a')};
+const music={
+  toggle(){ if(!tracks.length) return log('Carica prima dei brani dal pannello','b');
+    actx.resume(); audio.paused?audio.play().catch(e=>log('Play bloccato: '+e.message,'b')):audio.pause() },
+  async next(){ if(!tracks.length) return; ti=(ti+1)%tracks.length; await loadTrack(); audio.play().catch(()=>{}) }
+};
+audio.onended=()=>music.next();
+/* ================= LIBRERIA DAL PC (File System Access API) =================
+   Scegli una cartella una volta; poi con le mani apri sottocartelle e avvii i brani. */
+const AUDIO_RE=/\.(mp3|wav|ogg|m4a|aac|flac)$/i, PER_PAGE=6;
+const lib={open:false,stack:[],items:[],page:0,
+  toggle(){ if(!this.stack.length) return log('Clicca "Apri cartella del PC" nel pannello','b'); this.open=!this.open }};
+let holoCards=[], holo={x:0,y:0,w:0,h:0};
+$('btnDir').onclick=async()=>{
+  if(!window.showDirectoryPicker) return log('Serve Chrome o Edge su desktop','b');
+  try{ const dir=await showDirectoryPicker({id:'gt-music'}); ensureAudio();
+    lib.stack=[dir]; await libRead(); lib.open=true; log('Cartella: '+dir.name,'a') }
+  catch(e){ if(e.name!=='AbortError') log('Errore cartella: '+e.message,'b') }
+};
+async function libRead(){
+  const dirs=[],files=[];
+  for await(const h of lib.stack.at(-1).values()){
+    if(h.kind==='directory') dirs.push(h); else if(AUDIO_RE.test(h.name)) files.push(h) }
+  const by=(a,b)=>a.name.localeCompare(b.name,'it');
+  lib.items=[...dirs.sort(by),...files.sort(by)]; lib.page=0; layoutHolo();
+}
+function layoutHolo(){
+  holo={x:W*.06,y:H*.1,w:W*.88,h:floorY-H*.16};
+  const pad=14,gap=10,top=holo.y+40,nav=[];
+  if(lib.stack.length>1) nav.push({kind:'back',label:'⬅ Indietro'});
+  const pages=Math.ceil(lib.items.length/PER_PAGE);
+  if(pages>1) nav.push({kind:'more',label:`Pagina ${lib.page+1}/${pages} ➜`});
+  const navH=nav.length?46:0, cw=(holo.w-pad*2-gap)/2, ch=(holo.y+holo.h-pad-navH-top-gap*2)/3;
+  holoCards=lib.items.slice(lib.page*PER_PAGE,(lib.page+1)*PER_PAGE).map((fh,i)=>
+    ({kind:fh.kind,fh,label:fh.name,x:holo.x+pad+(i%2)*(cw+gap),y:top+Math.floor(i/2)*(ch+gap),w:cw,h:ch,glow:0}));
+  nav.forEach((n,i)=>holoCards.push({...n,x:holo.x+pad+i*(cw+gap),y:holo.y+holo.h-pad-36,w:cw,h:36,glow:0}));
+}
+async function libPick(k){
+  if(k.kind==='back'){lib.stack.pop();return libRead()}
+  if(k.kind==='more'){lib.page=(lib.page+1)%Math.ceil(lib.items.length/PER_PAGE);return layoutHolo()}
+  if(k.kind==='directory'){lib.stack.push(k.fh);return libRead()}
+  tracks=lib.items.filter(h=>h.kind==='file'); ti=tracks.indexOf(k.fh);   // playlist = cartella corrente
+  await loadTrack(); actx.resume(); audio.play().catch(e=>log('Play bloccato: '+e.message,'b'));
+  burst(k.x+k.w/2,k.y+k.h/2,'#f5b84a',30);
+}
+function beat(){ // sulla cassa i regali a terra saltano
+  if(!analyser||audio.paused) return;
+  analyser.getByteFrequencyData(freq);
+  const b=(freq[1]+freq[2]+freq[3]+freq[4])/4; if(kickCd>0) kickCd--;
+  if(b>170&&b>bassAvg*1.25&&!kickCd){kickCd=12;pads[4].glow=1;
+    for(const o of bodies) if(!o.held&&o.y>floorY-o.r-4) o.vy-=4+Math.random()*3}
+  bassAvg=bassAvg*.9+b*.1;
+}
+
+/* ================= EFFETTI + OVERLAY ================= */
+const stage=$('stage'),flashEl=$('flash'),banner=$('banner');
+const fx={
+  glitch(){stage.classList.remove('glitch');void stage.offsetWidth;stage.classList.add('glitch')},
+  boom(){burst(W/2,floorY/2,'#fe2c55',120);for(const b of bodies){if(b.held)continue;const dx=b.x-W/2,dy=b.y-floorY/2,d=Math.hypot(dx,dy)||1;b.vx+=dx/d*14;b.vy+=dy/d*14-6}},
+  flash(c='#fff'){flashEl.style.transition='none';flashEl.style.background=c;flashEl.style.opacity=.8;
+    requestAnimationFrame(()=>{flashEl.style.transition='opacity .5s';flashEl.style.opacity=0})},
+  pioggia(){for(let i=0;i<15;i++)setTimeout(()=>spawn(GIFTS[i%3]),i*60)},
+  salto(){for(const b of bodies)if(!b.held)b.vy-=12+Math.random()*6},
+  zeroG(){world.zeroG=!world.zeroG}
+};
+function showBanner(t){banner.textContent=t;banner.classList.add('show');setTimeout(()=>banner.classList.remove('show'),1600)}
+// Regalo lanciato dalla regia: nessun utente inventato
+function spawnRegia(g,x){spawn(g,x);if(g.r>=34){showBanner(`${g.emoji} ${g.name}`);fx.flash(g.color)}}
+// Chat: solo testo reale, inserito con textContent (sicuro)
+function chat(user,text,gift=false){
+  const d=document.createElement('div'),b=document.createElement('b');d.className='msg'+(gift?' gift':'');
+  b.textContent=user;d.append(b,document.createTextNode(text));$('chat').appendChild(d);
+  while($('chat').children.length>12)$('chat').firstChild.remove();
+}
+function realGift(user='utente',name='',count=1){
+  const k=Object.keys(ALIASES).find(a=>name.toLowerCase().includes(a));
+  const g=k?GIFTS.find(x=>x.id===ALIASES[k]):{id:'x',emoji:'🎁',name:name||'Regalo',r:28,color:'#25f4ee'};
+  for(let i=0;i<Math.min(count,10);i++) setTimeout(()=>spawn(g),i*80);
+  chat(user,` ha inviato ${g.emoji} ${g.name}${count>1?' x'+count:''}`,true);
+  if(g.r>=34){showBanner(`${user}: ${g.emoji} ${g.name}`);fx.flash(g.color)}
+}
+
+/* ================= AZIONI (pad, pulsanti, MIDI) ================= */
+function runAction(action,val=127){
+  const [k,id]=action.split(':');
+  if(k==='gift'&&val>0) spawnRegia(GIFTS.find(g=>g.id===id));
+  else if(k==='fx'&&val>0) fx[id]();
+  else if(k==='music'&&val>0) music[id]();
+  else if(k==='lib'&&val>0) lib.toggle();
+  else if(k==='axis') setAxis(id,val);
+  const p=pads.find(p=>p.action===action); if(p&&val>0) p.glow=1;
+}
+const gravEl=$('grav'),tiltEl=$('tilt');
+gravEl.oninput=()=>{world.g=+gravEl.value;$('gv').textContent=world.g.toFixed(1)};
+tiltEl.oninput=()=>{world.tilt=+tiltEl.value;$('tv').textContent=world.tilt.toFixed(2)};
+let tiltRel=false;
+function setAxis(id,v){
+  if(id==='grav'){gravEl.value=v/127*3;gravEl.oninput()}
+  if(id==='tilt'){const d=v<64?v:v-128; // jog wheel = valori relativi
+    tiltEl.value=tiltRel?Math.max(-1,Math.min(1,world.tilt+d*.02)):v/127*2-1;tiltEl.oninput()}
+}
+
+let learn=null, midiMap={};
+try{midiMap=JSON.parse(localStorage.getItem('gt_map')||'{}');tiltRel=localStorage.getItem('gt_rel')==='1'}catch(e){}
+function learnable(el,action,label){el.oncontextmenu=e=>{e.preventDefault();
+  document.querySelectorAll('.learning').forEach(x=>x.classList.remove('learning'));
+  learn={action,el};el.classList.add('learning');log(`Muovi un controllo per "${label}"`,'a')}}
+[...GIFTS.map(g=>[`${g.emoji} ${g.name}`,'gift:'+g.id]),
+ ...Object.keys(fx).map(f=>[f==='zeroG'?'Zero G':f[0].toUpperCase()+f.slice(1),'fx:'+f]),
+ ['▶ Musica','music:toggle'],['⏭ Traccia','music:next'],['📂 Libreria','lib:toggle']
+].forEach(([label,action])=>{const b=document.createElement('button');b.textContent=label;
+  b.onclick=()=>runAction(action);learnable(b,action,label);$('btns').appendChild(b)});
+learnable(gravEl,'axis:grav','Gravità'); learnable(tiltEl,'axis:tilt','Inclinazione');
+
+addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT') return;
+  const i='123456'.indexOf(e.key); if(i>=0) runAction('gift:'+GIFTS[i].id);
+  const j='qwerty'.indexOf(e.key.toLowerCase()); if(j>=0) fx[Object.keys(fx)[j]]();
+  if(e.code==='Space'){e.preventDefault();music.toggle()} });
+
+/* ================= WEB MIDI ================= */
+function log(t,c=''){const d=document.createElement('div');d.className=c;d.textContent=t;$('log').prepend(d);
+  while($('log').children.length>150)$('log').lastChild.remove()}
+let auto=0;
+function onMidi(e){
+  const [st,d1,d2=0]=e.data,type=st&0xF0,ch=(st&15)+1;
+  const kind=type===0x90&&d2>0?'note':type===0xB0?'cc':null; if(!kind) return;
+  log(`${kind} ch${ch} #${d1} = ${d2}`,kind==='cc'?'b':'a');
+  const key=`${kind}:${ch}:${d1}`;
+  if(learn){midiMap[key]=learn.action;
+    if(learn.action==='axis:tilt') tiltRel=d2<10||d2>117;
+    try{localStorage.setItem('gt_map',JSON.stringify(midiMap));localStorage.setItem('gt_rel',tiltRel?'1':'0')}catch(e){}
+    learn.el.classList.remove('learning');log(`✔ ${key} → ${learn.action}`,'a');learn=null;return}
+  if(midiMap[key]) return runAction(midiMap[key],d2);
+  if(kind==='note') runAction('gift:'+GIFTS[auto++%GIFTS.length].id);  // pad non mappati
+}
+$('btnMidi').onclick=async()=>{const st=$('midiSt');
+  if(!navigator.requestMIDIAccess){st.className='st err';st.textContent='Web MIDI non supportato: usa Chrome';return}
+  try{const acc=await navigator.requestMIDIAccess();
+    const bind=()=>{const n=[];acc.inputs.forEach(i=>{i.onmidimessage=onMidi;n.push(i.name)});
+      st.className='st '+(n.length?'ok':'err');st.textContent=n.length?'● '+n.join(', '):'Nessun dispositivo: collega la console via USB'};
+    bind();acc.onstatechange=bind;
+  }catch(err){st.className='st err';st.textContent='Accesso negato: '+err.message}};
+
+/* ================= EVENTI TIKTOK REALI (WebSocket) =================
+   Formato JSON atteso da un ponte locale (TikFinity, Streamer.bot o script Node):
+   {"type":"gift","user":"nome","gift":"Rose","count":1}
+   {"type":"chat","user":"nome","text":"ciao"}                                    */
+let ws;
+$('btnWs').onclick=()=>{const st=$('wsSt');try{ws?.close()}catch(e){}
+  try{ws=new WebSocket($('wsUrl').value)}catch(e){st.className='st err';st.textContent='URL non valido';return}
+  ws.onopen=()=>{st.className='st ok';st.textContent='● Collegato'};
+  ws.onclose=()=>{st.className='st err';st.textContent='Disconnesso'};
+  ws.onmessage=e=>{let d;try{d=JSON.parse(e.data)}catch{return}
+    if(d.type==='gift') realGift(String(d.user),String(d.gift),+d.count||1);
+    else if(d.type==='chat') chat(String(d.user),' '+String(d.text))}};
+
+/* ================= RENDER ================= */
+function draw(){
+  if(landmarker&&video.readyState>=2){const r=videoRect();ctx.save();ctx.translate(r.x+r.w,r.y);ctx.scale(-1,1);
+    ctx.drawImage(video,0,0,r.w,r.h);ctx.restore();ctx.fillStyle='rgba(5,6,10,.55)';ctx.fillRect(0,0,W,H)}
+  else{ctx.fillStyle='rgba(5,6,10,.35)';ctx.fillRect(0,0,W,H)}
+  ctx.strokeStyle='#25f4ee';ctx.shadowColor='#25f4ee';ctx.shadowBlur=12;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(0,floorY);ctx.lineTo(W,floorY);ctx.stroke();ctx.shadowBlur=0;
+  for(const p of particles){ctx.globalAlpha=p.l;ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,3,3)}ctx.globalAlpha=1;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  for(const b of bodies){ctx.save();ctx.translate(b.x,b.y);ctx.rotate(b.rot);ctx.shadowColor=b.color;ctx.shadowBlur=18;
+    ctx.font=`${b.r*1.7}px serif`;ctx.fillText(b.emoji,0,b.r*.08);ctx.restore()}
+  // Console virtuale
+  const cs=cursors();
+  for(const p of pads){const hover=cs.some(c=>c.on&&inside(c,p));p.glow*=.9;
+    ctx.fillStyle=`rgba(254,44,85,${.1+p.glow*.55})`;ctx.strokeStyle=hover?'#25f4ee':'rgba(255,255,255,.18)';
+    ctx.lineWidth=hover?2.5:1;ctx.beginPath();ctx.roundRect(p.x,p.y,p.w,p.h,12);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font=`${p.h*.36}px serif`;
+    ctx.fillText(p.action==='music:toggle'&&!audio.paused?'⏸':p.icon,p.x+p.w/2,p.y+p.h*.42);
+    ctx.fillStyle='rgba(233,236,245,.7)';ctx.font=`600 ${Math.max(9,p.h*.13)}px Manrope`;ctx.fillText(p.sub,p.x+p.w/2,p.y+p.h*.8)}
+  // Pannello olografico libreria
+  if(lib.open){const A='#f5b84a';ctx.save();
+    ctx.fillStyle='rgba(20,14,4,.55)';ctx.strokeStyle=A;ctx.shadowColor=A;ctx.shadowBlur=24;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(holo.x,holo.y,holo.w,holo.h,14);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+    ctx.fillStyle=A;ctx.font='500 12px Unbounded';ctx.textAlign='left';
+    ctx.fillText('📂 '+lib.stack.map(d=>d.name).join(' / '),holo.x+14,holo.y+22,holo.w-28);ctx.textAlign='center';
+    for(const k of holoCards){const hover=cs.some(c=>c.on&&inside(c,k)),playing=k.fh&&k.fh===tracks[ti]&&!audio.paused;k.glow*=.9;
+      ctx.fillStyle=`rgba(245,184,74,${.06+k.glow*.4+(playing?.18:0)})`;
+      ctx.strokeStyle=hover||playing?A:'rgba(245,184,74,.3)';ctx.lineWidth=hover?2.5:1;
+      if(hover){ctx.shadowColor=A;ctx.shadowBlur=16}
+      ctx.beginPath();ctx.roundRect(k.x,k.y,k.w,k.h,10);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+      const icon=k.kind==='directory'?'📁':k.kind==='file'?(playing?'🔊':'🎵'):'';
+      if(icon){ctx.font=`${k.h*.32}px serif`;ctx.fillText(icon,k.x+k.w/2,k.y+k.h*.38)}
+      const t=k.label.replace(AUDIO_RE,'');ctx.fillStyle='#f3e6c8';ctx.font=`600 ${Math.max(10,Math.min(13,k.h*.13))}px Manrope`;
+      ctx.fillText(t.length>24?t.slice(0,23)+'…':t,k.x+k.w/2,icon?k.y+k.h*.78:k.y+k.h/2,k.w-10)}
+    ctx.restore()}
+  // Puntatori delle dita
+  for(const c of hands){if(!c.on)continue;ctx.beginPath();ctx.arc(c.x,c.y,c.pinch?12:16,0,7);
+    ctx.fillStyle=c.pinch?'rgba(254,44,85,.8)':'rgba(37,244,238,.15)';ctx.fill();
+    ctx.strokeStyle=c.pinch?'#fe2c55':'#25f4ee';ctx.lineWidth=2;ctx.stroke()}
+}
+function loop(){trackHands();dragHeld();beat();step();draw();requestAnimationFrame(loop)}
+resize();loop();
+</script>
+</body>
+</html>

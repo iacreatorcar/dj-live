@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0d0d0f"/>
+  <circle cx="256" cy="256" r="196" fill="#1b1b20" stroke="#3ea6ff" stroke-width="18"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#ffffff10" stroke-width="40"/>
+  <circle cx="256" cy="256" r="92" fill="#ff7a3d"/>
+  <text x="256" y="246" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="30" fill="#0b0b0d">CD</text>
+  <text x="256" y="284" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="38" fill="#0b0b0d">FLYDJ</text>
+  <rect x="246" y="64" width="20" height="58" rx="6" fill="#fff"/>
+</svg>

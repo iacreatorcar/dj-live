@@ -1,0 +1,376 @@
+<title>CD FlyDJ Track Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: scheda tecnica da console — indice fisso a sinistra su schermi larghi, colonna unica su telefono.
+   Colori dei due deck (blu = deck 1, arancio = deck 2) usati solo dove indicano davvero un deck. */
+:root{
+  --bg:#f3f5f8; --paper:#ffffff; --fg:#151a22; --muted:#5a6475; --rule:#d8dee8; --soft:#e9eef5;
+  --deck1:#1f6fd1; --deck2:#d75a1c; --cue:#b8730a; --ok:#1f8a4c; --warn:#b3261e; --accent:#1f6fd1;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1218; --paper:#161a22; --fg:#e7ebf2; --muted:#9aa4b5; --rule:#2a3140; --soft:#1d232e;
+  --deck1:#5aa2ff; --deck2:#ff8a4c; --cue:#f0b44c; --ok:#4cc985; --warn:#ff6b61; --accent:#5aa2ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1218; --paper:#161a22; --fg:#e7ebf2; --muted:#9aa4b5; --rule:#2a3140; --soft:#1d232e;
+  --deck1:#5aa2ff; --deck2:#ff8a4c; --cue:#f0b44c; --ok:#4cc985; --warn:#ff6b61; --accent:#5aa2ff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px);padding-block:32px 72px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px}
+@media (max-width:980px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px}}
+/* indice */
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;font-size:13px}
+nav.toc .tt{font:800 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:s}
+nav.toc a{display:flex;gap:10px;color:var(--fg);text-decoration:none;padding:4px 8px;border-radius:4px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--soft);outline:none}
+nav.toc a span{font:600 11px/1.9 var(--mono);color:var(--muted);min-width:20px}
+@media (max-width:980px){nav.toc{position:static}nav.toc ol{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+/* testata */
+header.doc{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding-bottom:24px;border-bottom:2px solid var(--fg)}
+@media (max-width:700px){header.doc{grid-template-columns:minmax(0,1fr)}}
+.eyebrow{font:700 11px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font:900 clamp(34px,6vw,58px)/.95 var(--display);font-variation-settings:"wdth" 118;letter-spacing:-.01em;margin:10px 0 12px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--deck2)}
+.lede{max-width:62ch;color:var(--muted);margin:0}
+.meta{display:grid;grid-template-columns:auto auto;gap:4px 16px;font:500 12px/1.5 var(--mono);color:var(--muted);white-space:nowrap}
+.meta b{color:var(--fg);font-weight:600}
+/* sezioni */
+main{min-width:0;display:grid;gap:56px}
+section{scroll-margin-top:24px;display:grid;gap:14px;min-width:0}
+h2{font:800 24px/1.15 var(--display);font-variation-settings:"wdth" 112;margin:0;display:flex;gap:12px;align-items:baseline;text-wrap:balance}
+h2 .n{font:600 13px/1 var(--mono);color:var(--muted)}
+h3{font:700 16px/1.3 var(--display);font-variation-settings:"wdth" 108;margin:10px 0 0;letter-spacing:.01em}
+p{margin:0;max-width:68ch}
+.muted{color:var(--muted)}
+ul.clean{margin:0;padding-left:18px;display:grid;gap:4px;max-width:70ch}
+ol.steps{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:st;max-width:72ch}
+ol.steps li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start}
+ol.steps li::before{counter-increment:st;content:counter(st);font:700 13px/30px var(--mono);text-align:center;border:1.5px solid var(--fg);border-radius:50%;width:30px;height:30px}
+/* tabelle */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--paper)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--rule)}
+th{font:700 11px/1.3 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap;font-weight:600}
+td.wrap{white-space:normal}
+kbd,code{font:600 12.5px/1 var(--mono);background:var(--soft);border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:2px 6px;white-space:nowrap;color:var(--fg)}
+code{border-bottom-width:1px;font-weight:500}
+.d1{color:var(--deck1);font-weight:700}.d2{color:var(--deck2);font-weight:700}
+/* note */
+.note{border-left:3px solid var(--cue);background:var(--paper);padding:10px 14px;border-radius:0 6px 6px 0;max-width:72ch;font-size:14px}
+.note.warn{border-left-color:var(--warn)} .note.ok{border-left-color:var(--ok)}
+.note b{font-family:var(--display);letter-spacing:.02em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.panel h3{margin:0}
+.tag{display:inline-block;font:700 10px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;padding:4px 7px;border-radius:3px;border:1px solid currentColor;vertical-align:middle}
+.tag.demo{color:var(--warn)} .tag.new{color:var(--ok)}
+footer{grid-column:1/-1;border-top:1px solid var(--rule);padding-top:16px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+  <header class="doc">
+    <div>
+      <div class="eyebrow">Scheda tecnica e manuale d'uso</div>
+      <h1>CD FlyDJ <em>Track Pro</em></h1>
+      <p class="lede">Console DJ a due deck che gira nel browser, pensata per il controller Numark Mixtrack Pro FX. Si usa con il controller, con lo schermo touch, con la tastiera, con i gesti delle mani davanti alla webcam e, in modalità dimostrativa, con la voce.</p>
+    </div>
+    <div class="meta">
+      <span>Versione</span><b>1.0 · ottobre 2026</b>
+      <span>File</span><b>dj-live.html</b>
+      <span>Browser</span><b>Chrome / Edge</b>
+      <span>Controller</span><b>Mixtrack Pro FX</b>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Indice">
+    <div class="tt">Indice</div>
+    <ol>
+      <li><a href="#specifiche"><span>01</span>Specifiche</a></li>
+      <li><a href="#avvio"><span>02</span>Avvio rapido</a></li>
+      <li><a href="#schermo"><span>03</span>Lo schermo</a></li>
+      <li><a href="#deck"><span>04</span>Deck</a></li>
+      <li><a href="#pad"><span>05</span>Pad e loop</a></li>
+      <li><a href="#mixer"><span>06</span>Mixer, FX, sampler</a></li>
+      <li><a href="#libreria"><span>07</span>Libreria e REC</a></li>
+      <li><a href="#controller"><span>08</span>Controller Numark</a></li>
+      <li><a href="#audio"><span>09</span>Casse e cuffia</a></li>
+      <li><a href="#gesti"><span>10</span>Gesti delle mani</a></li>
+      <li><a href="#voce"><span>11</span>Comandi vocali</a></li>
+      <li><a href="#tastiera"><span>12</span>Tastiera</a></li>
+      <li><a href="#impostazioni"><span>13</span>Impostazioni e tablet</a></li>
+      <li><a href="#problemi"><span>14</span>Risoluzione problemi</a></li>
+      <li><a href="#limiti"><span>15</span>Limiti noti</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section id="specifiche">
+      <h2><span class="n">01</span>Specifiche</h2>
+      <div class="tbl"><table>
+        <tr><th>Voce</th><th>Valore</th></tr>
+        <tr><td>Piattaforma</td><td class="wrap">Pagina web unica, nessuna installazione. Windows, macOS, Android (Samsung Tab). Installabile come app quando è online in HTTPS.</td></tr>
+        <tr><td>Browser</td><td class="wrap">Google Chrome o Microsoft Edge aggiornati (servono Web MIDI e Web Audio).</td></tr>
+        <tr><td>Deck</td><td class="wrap">2 deck, BPM analizzato al centesimo, beat grid, waveform colorata per frequenza (rosso bassi, verde medi, blu alti).</td></tr>
+        <tr><td>Sync</td><td class="wrap">Aggancio di tempo e battuta con correzione continua (al massimo ±0,6% di velocità, non udibile); half/double tempo (70↔140).</td></tr>
+        <tr><td>Pitch</td><td class="wrap">Range ±8%, ±16%, ±50%.</td></tr>
+        <tr><td>Formati audio</td><td class="wrap">MP3, WAV, M4A/AAC, FLAC, OGG, OPUS; AIFF dove il browser lo supporta.</td></tr>
+        <tr><td>Uscita audio</td><td class="wrap">Stereo, oppure 4 canali con scheda DJ (casse 1-2, cuffia 3-4) e CUE MIX software.</td></tr>
+        <tr><td>Registrazione</td><td class="wrap">Mix in WAV 16 bit stereo, circa 600 MB per ora.</td></tr>
+        <tr><td>Controller</td><td class="wrap">Numark Mixtrack Pro FX con preset incorporato; qualsiasi controller MIDI tramite LEARN.</td></tr>
+        <tr><td>Gesti</td><td class="wrap">Webcam + riconoscimento delle mani elaborato sul dispositivo (fino a 2 mani).</td></tr>
+        <tr><td>Voce <span class="tag demo">demo</span></td><td class="wrap">Riconoscimento vocale di Chrome in italiano, circa 1 s di latenza, richiede internet.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 02 -->
+    <section id="avvio">
+      <h2><span class="n">02</span>Avvio rapido</h2>
+      <ol class="steps">
+        <li><div><b>Chiudi Serato</b> e gli altri programmi DJ. Su Windows il controller può essere usato da un solo programma alla volta.</div></li>
+        <li><div>Collega il Mixtrack via USB, poi apri <code>dj-live.html</code> in <b>Chrome</b> con doppio clic. Evita l'anteprima di VS Code e le finestre in incognito: lì le impostazioni non restano salvate.</div></li>
+        <li><div>Premi <kbd>🎛 MIDI</kbd> e consenti l'accesso MIDI. Con una mappa vuota il preset del Mixtrack si carica da solo; altrimenti premi <kbd>PRESET MIXTRACK</kbd>.</div></li>
+        <li><div>Nello stesso pannello premi <kbd>🔊 TEST AUDIO</kbd>: senti un bip sulle casse e uno in cuffia.</div></li>
+        <li><div>Premi <kbd>+ AGGIUNGI BRANI</kbd> (o trascina i file nella libreria). L'analisi dei BPM parte da sola.</div></li>
+        <li><div>Seleziona un brano e premi <b>LOAD</b> sul deck, poi <b>PLAY</b>. Carica il secondo brano sull'altro deck e premi <b>SYNC</b>.</div></li>
+      </ol>
+    </section>
+
+    <!-- 03 -->
+    <section id="schermo">
+      <h2><span class="n">03</span>Lo schermo</h2>
+      <p>Dall'alto in basso: barra comandi, waveform dei due deck, deck 1 · mixer · deck 2, effetti e sampler, libreria.</p>
+      <div class="tbl"><table>
+        <tr><th>Tasto in alto</th><th>Funzione</th></tr>
+        <tr><td>● REC</td><td class="wrap">Avvia e ferma la registrazione del mix; alla fine scarica il WAV.</td></tr>
+        <tr><td>AUTO GAIN</td><td class="wrap">Porta i brani a un volume medio simile (correzione da −9 a +6 dB).</td></tr>
+        <tr><td>⚙</td><td class="wrap">Impostazioni: skin, tablet, mani, voce.</td></tr>
+        <tr><td>🎯 LEARN</td><td class="wrap">Collega i comandi del controller toccandoli sullo schermo.</td></tr>
+        <tr><td>🎛 MIDI</td><td class="wrap">Stato del controller, preset, configurazione guidata, uscita audio, TEST AUDIO, monitor.</td></tr>
+        <tr><td>🎤 VOCE DEMO</td><td class="wrap">Comandi vocali dimostrativi.</td></tr>
+        <tr><td>✋ MANI</td><td class="wrap">Controllo con i gesti davanti alla webcam.</td></tr>
+        <tr><td>FX · LIBRERIA</td><td class="wrap">Mostrano o nascondono la sezione effetti e la libreria.</td></tr>
+        <tr><td>QUANTIZE</td><td class="wrap">Cue, hot cue e loop agganciati alla battuta.</td></tr>
+        <tr><td>Cue Mix · Master</td><td class="wrap">Mix della cuffia (sinistra solo CUE, destra solo master) e volume generale.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 04 -->
+    <section id="deck">
+      <h2><span class="n">04</span>Deck</h2>
+      <p>Il <span class="d1">deck 1</span> è a sinistra, il <span class="d2">deck 2</span> a destra. In ogni deck: titolo e BPM, tempo trascorso e rimanente, indicatore della battuta (4 tacche), overview del brano, piatto, pitch, comandi e pad.</p>
+      <div class="tbl"><table>
+        <tr><th>Comando</th><th>Uso</th><th>Con SHIFT</th></tr>
+        <tr><td>PLAY</td><td class="wrap">Avvia e mette in pausa.</td><td class="wrap">—</td></tr>
+        <tr><td>CUE</td><td class="wrap">In play: torna al punto di cue e si ferma. Da fermo sul cue: suona finché tieni premuto. Da fermo altrove: imposta un nuovo cue.</td><td class="wrap">Torna all'inizio del brano.</td></tr>
+        <tr><td>SYNC</td><td class="wrap"><b>Blu</b> = tempo e battuta agganciati. Diventa <b>oro (TEMPO)</b> se sposti il brano a mano: il tempo resta agganciato, la fase la decidi tu. Ripremi per riagganciare la battuta.</td><td class="wrap">Spegne il sync.</td></tr>
+        <tr><td>SCRATCH</td><td class="wrap">Il jog fa scratch (acceso) oppure pitch bend (spento).</td><td class="wrap">Tenuto: <b>Censor</b>, suona al contrario e riprende da dove sarebbe arrivato.</td></tr>
+        <tr><td>SLIP</td><td class="wrap">Dopo scratch, hot cue e loop il brano riprende da dove sarebbe arrivato, in battuta.</td><td class="wrap">—</td></tr>
+        <tr><td>LOAD</td><td class="wrap">Carica il brano selezionato. Doppio LOAD dal controller = stesso brano su entrambi i deck (Instant Doubles).</td><td class="wrap">—</td></tr>
+        <tr><td>Pitch · − +</td><td class="wrap">Fader della velocità; − e + rallentano o accelerano finché tieni premuto. Tasto ±8 per cambiare range.</td><td class="wrap">Bend − cambia il range.</td></tr>
+        <tr><td>Piatto</td><td class="wrap">Toccato col mouse, col dito o col jog: scratch in modalità SCRATCH, spinta o freno altrimenti, ricerca da fermo.</td><td class="wrap">Ricerca veloce nel brano.</td></tr>
+        <tr><td>BPM</td><td class="wrap">Premilo a tempo 4 o più volte per correggere i BPM (tap).</td><td class="wrap">TAP con SHIFT: torna ai BPM analizzati.</td></tr>
+        <tr><td>VOCE / MUSICA / BASSI OFF</td><td class="wrap">Tolgono la voce (resta la base), la musica (resta la voce) o i bassi sotto 180 Hz.</td><td class="wrap">—</td></tr>
+        <tr><td>📯 HORN</td><td class="wrap">Sirena da DJ: tocco = 3 colpi, tenuto = suona finché tieni.</td><td class="wrap">—</td></tr>
+      </table></div>
+      <div class="note"><b>Fine brano.</b> Negli ultimi 20 secondi l'anello del piatto lampeggia rosso.</div>
+    </section>
+
+    <!-- 05 -->
+    <section id="pad">
+      <h2><span class="n">05</span>Pad e loop</h2>
+      <p>Quattro pad in alto con modalità a scelta e quattro in basso fissi. Le modalità si cambiano con i tab sopra i pad o con i tasti modalità del controller.</p>
+      <div class="tbl"><table>
+        <tr><th>Modalità</th><th>Pad in alto</th><th>Con SHIFT</th></tr>
+        <tr><td>CUE</td><td class="wrap">4 hot cue: pad spento = imposta, acceso = salta lì. Da fermo: suona finché tieni.</td><td class="wrap">Cancella l'hot cue.</td></tr>
+        <tr><td>AUTO LOOP</td><td class="wrap">Loop di 1, 2, 4, 8 battute.</td><td class="wrap">Roll di 1/16, ⅛, ¼, ½ battuta (finché tieni).</td></tr>
+        <tr><td>FADER CUTS</td><td class="wrap">Tagli ritmici da 1 a 4 click per battuta, finché tieni.</td><td class="wrap">—</td></tr>
+        <tr><td>SAMPLER</td><td class="wrap">Suona i 4 campioni.</td><td class="wrap">Carica il brano selezionato nello slot, o ferma il campione.</td></tr>
+        <tr><td>EXTRA <span class="tag new">pag. 2</span></td><td class="wrap">VOCE OFF · MUSICA OFF · BASSI OFF · 📯 HORN.</td><td class="wrap">Si apre con SHIFT + tasto modalità.</td></tr>
+      </table></div>
+      <div class="tbl"><table>
+        <tr><th>Fila bassa</th><th>Pagina 1</th><th>Pagina 2 (EXTRA)</th></tr>
+        <tr><td>1</td><td>STUTTER (riparte dal punto di play)</td><td>SYNC</td></tr>
+        <tr><td>2</td><td>⏮ brano precedente</td><td>SLIP</td></tr>
+        <tr><td>3</td><td>◀◀ ricerca indietro</td><td>CENSOR (tenuto)</td></tr>
+        <tr><td>4</td><td>▶▶ ricerca avanti</td><td>TAP</td></tr>
+      </table></div>
+      <div class="tbl"><table>
+        <tr><th>Loop</th><th>Uso</th><th>Con SHIFT</th></tr>
+        <tr><td>LOOP</td><td>Accende e spegne il loop (lunghezza attuale).</td><td>Reloop: riattiva l'ultimo loop.</td></tr>
+        <tr><td>½</td><td>Dimezza il loop.</td><td>Imposta il Loop IN.</td></tr>
+        <tr><td>x2</td><td>Raddoppia il loop.</td><td>Imposta il Loop OUT.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 06 -->
+    <section id="mixer">
+      <h2><span class="n">06</span>Mixer, effetti e sampler</h2>
+      <div class="grid2">
+        <div class="panel"><h3>Canale</h3><p>LEVEL/TRIM, HI/TREBLE, MID, LOW/BASS (fino a −26 dB = taglio), FILTER/COLOR, fader del volume con VU, tasto <b>CUE</b> per la cuffia.</p></div>
+        <div class="panel"><h3>Crossfader</h3><p>Curva a potenza costante. Doppio clic al centro, frecce <kbd>←</kbd> <kbd>→</kbd> da tastiera.</p></div>
+        <div class="panel"><h3>Effetti per deck</h3><p>FX 1 a sinistra (deck 1), FX 2 a destra (deck 2): HPF, LPF, Flanger, Echo, Reverb, Phaser, con BEATS (⅛…8), WET/DRY e ON. I tasti FX del controller agiscono sul deck con la leva accesa, o su entrambi.</p></div>
+        <div class="panel"><h3>Sound Color FX</h3><p>Solo nelle skin Pioneer: DUB ECHO, SWEEP, NOISE, FILTER e PARAMETER, sulla manopola COLOR di ogni canale. Ripremi il tasto acceso per tornare a FILTER.</p></div>
+        <div class="panel"><h3>Sampler</h3><p>4 slot con volume. Clic = suona; con SHIFT carica il brano selezionato o ferma il campione.</p></div>
+        <div class="panel"><h3>TAP</h3><p>Tap dei BPM sul deck usato per ultimo; con SHIFT torna ai BPM analizzati.</p></div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section id="libreria">
+      <h2><span class="n">07</span>Libreria e registrazione</h2>
+      <div class="tbl"><table>
+        <tr><th>Tab</th><th>Contenuto</th></tr>
+        <tr><td>Files</td><td class="wrap">Tutti i brani aggiunti, con BPM e durata. I brani già suonati diventano grigi.</td></tr>
+        <tr><td>Browse</td><td class="wrap">Filtro per fasce di BPM (&lt;100, 100–120, 120–130, 130–150, 150+).</td></tr>
+        <tr><td>Prepare</td><td class="wrap">Coda dei prossimi brani (tasto <b>+</b> sulla riga). Un brano caricato esce dalla coda.</td></tr>
+        <tr><td>History</td><td class="wrap">Brani suonati in questa sessione, con orario e deck.</td></tr>
+      </table></div>
+      <ul class="clean">
+        <li><b>Caricare:</b> tasti <b>1</b> / <b>2</b> sulla riga, doppio clic, trascinamento sul deck, LOAD del deck o del controller.</li>
+        <li><b>Cercare:</b> campo di ricerca (titolo e artista), <kbd>Ctrl</kbd>+<kbd>F</kbd>.</li>
+        <li><b>Nomi dei file:</b> “Artista - Titolo.mp3” viene diviso in artista e titolo.</li>
+        <li><b>REC:</b> premi ● REC, suona, ripremi: il file <code>CD-FlyDJ-mix-data.wav</code> va nei Download.</li>
+      </ul>
+      <div class="note warn"><b>Da sapere.</b> Per ora la libreria non resta dopo il riavvio della pagina: i brani vanno riaggiunti. Mappa MIDI e impostazioni invece restano salvate.</div>
+    </section>
+
+    <!-- 08 -->
+    <section id="controller">
+      <h2><span class="n">08</span>Controller Numark Mixtrack Pro FX</h2>
+      <p>Il deck 1 usa il canale MIDI 0 (pad sul canale 4), il deck 2 il canale 1 (pad sul canale 5).</p>
+      <div class="grid2">
+        <div class="panel"><h3>Preset incorporato</h3><p>Si carica da solo quando colleghi il controller e non c'è una mappa salvata. Per ricaricarlo: 🎛 MIDI → <b>PRESET MIXTRACK</b>.</p></div>
+        <div class="panel"><h3>🎯 LEARN</h3><p>Premi LEARN, tocca un comando sullo schermo (diventa giallo), muovi lo stesso comando sul controller (diventa verde). Per il piatto: tocca il jog, poi giralo. <b>CANCELLA</b> scollega, <b>FINE</b> o <kbd>Esc</kbd> salva.</p></div>
+        <div class="panel"><h3>Configurazione guidata</h3><p>Lo schermo chiede un comando alla volta. Se trova già una mappa, completa solo quello che manca. Alla fine salva una copia nei Download.</p></div>
+        <div class="panel"><h3>Esporta / importa</h3><p>Salva la mappa in <code>djfly-mixtrack-pro-fx.json</code> per usarla su un altro PC o browser.</p></div>
+      </div>
+      <p class="muted">Il <b>MONITOR</b> in fondo al pannello MIDI mostra ogni messaggio ricevuto (es. <code>n:0:1 127 → A.play</code>): serve a capire se il controller sta comunicando.</p>
+    </section>
+
+    <!-- 09 -->
+    <section id="audio">
+      <h2><span class="n">09</span>Casse e cuffia</h2>
+      <div class="tbl"><table>
+        <tr><th>Situazione</th><th>Cosa succede</th></tr>
+        <tr><td>Scheda a 4 canali (Mixtrack)</td><td class="wrap">Master sulle uscite RCA (canali 1-2), cuffia sui canali 3-4. Si attiva da solo con una scheda a 4 canali, o scegliendo la scheda in 🎛 MIDI → <b>RILEVA SCHEDE AUDIO</b>.</td></tr>
+        <tr><td>CUE MIX</td><td class="wrap">La cuffia mescola i canali con CUE acceso e il master. Di base a metà, quindi senti sempre qualcosa.</td></tr>
+        <tr><td>Casse del PC / tablet</td><td class="wrap">Stereo: la cuffia sente il master.</td></tr>
+        <tr><td>🔊 TEST AUDIO</td><td class="wrap">Bip a 440 Hz sulle casse e 660 Hz in cuffia, con la diagnosi: master a zero, fader abbassati, crossfader dalla parte sbagliata, CUE MIX senza CUE acceso.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 10 -->
+    <section id="gesti">
+      <h2><span class="n">10</span>Gesti delle mani</h2>
+      <p>Premi <b>✋ MANI</b> e consenti la webcam. L'anteprima della camera mostra le mani con lo scheletro colorato. Stai a circa un metro dalla camera, con buona luce. La zona tratteggiata dell'anteprima copre tutto lo schermo.</p>
+      <div class="tbl"><table>
+        <tr><th>Gesto</th><th>Effetto</th></tr>
+        <tr><td>Mano <span class="d1">sinistra (blu)</span></td><td class="wrap">Lavora per il <b>deck 1</b>.</td></tr>
+        <tr><td>Mano <span class="d2">destra (rossa)</span></td><td class="wrap">Lavora per il <b>deck 2</b>.</td></tr>
+        <tr><td>✋ Mano aperta</td><td class="wrap">Puntatore: anello vuoto sullo schermo, il controllo sotto si evidenzia.</td></tr>
+        <tr><td>✊ Pugno</td><td class="wrap">Tocco: preme i tasti; su manopole, fader, crossfader e piatto li afferra, e muovendo il pugno li trascini o fai lo scratch. Riapri la mano per lasciare.</td></tr>
+        <tr><td>🤏 Pizzico</td><td class="wrap">Pollice e indice uniti: tocco, in alternativa al pugno.</td></tr>
+        <tr><td>✊ su un brano</td><td class="wrap">Carica il brano sul deck di quella mano: blu → deck 1, rossa → deck 2. Accanto alla mano compare il titolo prima di chiudere.</td></tr>
+        <tr><td>✋ ferma 1 s</td><td class="wrap">Su un brano lo seleziona, su LOAD lo carica, sulle tab della libreria le apre. Un anello bianco mostra l'attesa.</td></tr>
+      </table></div>
+      <div class="note"><b>Voce e mani non insieme.</b> Accendendo una funzione l'altra si spegne. In serata la combinazione consigliata è console + schermo.</div>
+    </section>
+
+    <!-- 11 -->
+    <section id="voce">
+      <h2><span class="n">11</span>Comandi vocali <span class="tag demo">solo demo</span></h2>
+      <p>Premi <b>🎤 VOCE DEMO</b> e consenti il microfono. Ogni comando riconosciuto compare in basso sullo schermo. Con la musica alta il microfono sente le casse: la voce serve per presentazioni e prove, non per la serata.</p>
+      <div class="tbl"><table>
+        <tr><th>Dici</th><th>Effetto</th></tr>
+        <tr><td>“play 1” · “play uno”</td><td class="wrap">Avvia il deck 1.</td></tr>
+        <tr><td>“play 2” · “play deck due”</td><td class="wrap">Avvia il deck 2.</td></tr>
+        <tr><td>“stop 1” · “pausa uno”</td><td class="wrap">Ferma il deck 1.</td></tr>
+        <tr><td>“stop 2” · “ferma secondo”</td><td class="wrap">Ferma il deck 2.</td></tr>
+        <tr><td>“play tutti” / “stop tutti”</td><td class="wrap">Entrambi i deck.</td></tr>
+        <tr><td>“play” / “stop”</td><td class="wrap">Il deck pronto / il deck che sta suonando.</td></tr>
+        <tr><td>“cue”, “sync”, “carica”, “sirena”</td><td class="wrap">Come i tasti; aggiungi “deck uno” o “deck due”.</td></tr>
+      </table></div>
+      <p class="muted">Funziona solo in Chrome con internet: l'audio della voce viene elaborato dai server di Google.</p>
+    </section>
+
+    <!-- 12 -->
+    <section id="tastiera">
+      <h2><span class="n">12</span>Tastiera (stile Serato)</h2>
+      <div class="tbl"><table>
+        <tr><th>Funzione</th><th>Deck 1</th><th>Deck 2</th></tr>
+        <tr><td>Play / pausa</td><td><kbd>W</kbd></td><td><kbd>S</kbd></td></tr>
+        <tr><td>Cue (tenuto)</td><td><kbd>I</kbd></td><td><kbd>K</kbd></td></tr>
+        <tr><td>Censor</td><td><kbd>Q</kbd> <kbd>U</kbd></td><td><kbd>A</kbd> <kbd>J</kbd></td></tr>
+        <tr><td>Bend − / +</td><td><kbd>T</kbd> / <kbd>Y</kbd></td><td><kbd>G</kbd> / <kbd>H</kbd></td></tr>
+        <tr><td>Tempo + / −</td><td><kbd>R</kbd> / <kbd>E</kbd></td><td><kbd>F</kbd> / <kbd>D</kbd></td></tr>
+        <tr><td>Ricerca avanti / indietro</td><td><kbd>Alt</kbd>+<kbd>R</kbd> / <kbd>E</kbd></td><td><kbd>Alt</kbd>+<kbd>F</kbd> / <kbd>D</kbd></td></tr>
+        <tr><td>Hot cue (Shift = cancella)</td><td><kbd>1</kbd>–<kbd>4</kbd></td><td><kbd>6</kbd>–<kbd>9</kbd></td></tr>
+        <tr><td>Auto loop 1·2·4·8</td><td><kbd>Alt</kbd>+<kbd>1</kbd>–<kbd>4</kbd></td><td><kbd>Alt</kbd>+<kbd>6</kbd>–<kbd>9</kbd></td></tr>
+        <tr><td>Roll</td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>–<kbd>4</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>6</kbd>–<kbd>9</kbd></td></tr>
+        <tr><td>Loop on/off (Alt = reloop)</td><td><kbd>[</kbd></td><td><kbd>'</kbd></td></tr>
+        <tr><td>Loop in / out</td><td><kbd>O</kbd> / <kbd>P</kbd></td><td><kbd>L</kbd> / <kbd>;</kbd></td></tr>
+        <tr><td>Carica il brano selezionato</td><td><kbd>Shift</kbd>+<kbd>←</kbd></td><td><kbd>Shift</kbd>+<kbd>→</kbd></td></tr>
+      </table></div>
+      <p class="muted">Generali: <kbd>↑</kbd> <kbd>↓</kbd> libreria · <kbd>←</kbd> <kbd>→</kbd> crossfader · <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> sampler (Alt = stop, Ctrl+Alt = carica) · <kbd>Ctrl</kbd>+<kbd>P</kbd> aggiungi a Prepare · <kbd>Ctrl</kbd>+<kbd>F</kbd> cerca · <kbd>Esc</kbd> esce da LEARN. I tasti seguono la posizione della tastiera americana, come in Serato. Su Windows <kbd>Alt</kbd>+<kbd>E</kbd> e <kbd>Alt</kbd>+<kbd>F</kbd> possono aprire il menu di Chrome.</p>
+    </section>
+
+    <!-- 13 -->
+    <section id="impostazioni">
+      <h2><span class="n">13</span>Impostazioni e tablet</h2>
+      <div class="tbl"><table>
+        <tr><th>Voce in ⚙</th><th>Effetto</th></tr>
+        <tr><td>Skin</td><td class="wrap"><b>CD FlyDJ · Serato</b> (essenziale), <b>Pioneer DJM-750MK2</b> (mixer metallo, Beat FX con display, Sound Color FX), <b>Pioneer XDJ</b> (jog stile CDJ con anello LED, pad illuminati).</td></tr>
+        <tr><td>Anteprima camera</td><td class="wrap">Piccola / media / grande; posizione in uno dei 4 angoli o nascosta.</td></tr>
+        <tr><td>Mano ferma = seleziona</td><td class="wrap">Attiva o spegne la selezione tenendo ferma la mano aperta.</td></tr>
+        <tr><td>Modalità tablet</td><td class="wrap">Tasti, pad, manopole e fader più grandi; si accende da sola sugli schermi touch.</td></tr>
+        <tr><td>Schermo sempre acceso</td><td class="wrap">Il tablet non va in standby durante il set.</td></tr>
+        <tr><td>Schermo intero · Installa app</td><td class="wrap">Pieno schermo; installazione come app quando la pagina è online in HTTPS.</td></tr>
+      </table></div>
+      <div class="note"><b>Samsung Tab.</b> Collega il Mixtrack con un adattatore USB-C OTG; se il controller non si accende, usa un hub USB alimentato. Su Android la cuffia separata non è disponibile: la cuffia sente il master.</div>
+    </section>
+
+    <!-- 14 -->
+    <section id="problemi">
+      <h2><span class="n">14</span>Risoluzione problemi</h2>
+      <div class="tbl"><table>
+        <tr><th>Problema</th><th>Soluzione</th></tr>
+        <tr><td>Il controller non viene visto</td><td class="wrap">Chiudi Serato, usa Chrome o Edge, cambia porta USB e ricarica la pagina. Nel MONITOR del pannello MIDI devono comparire i messaggi quando muovi i comandi.</td></tr>
+        <tr><td>Un comando fa la cosa sbagliata</td><td class="wrap">🎯 LEARN → tocca il comando → CANCELLA → rifallo.</td></tr>
+        <tr><td>La mappa sparisce</td><td class="wrap">Apri sempre la pagina in Chrome (non nell'anteprima di VS Code né in incognito). Tieni una copia con ESPORTA.</td></tr>
+        <tr><td>Non si sente niente</td><td class="wrap">🔊 TEST AUDIO e leggi la diagnosi: master, fader, crossfader, CUE MIX, volume di Windows.</td></tr>
+        <tr><td>Cuffia muta</td><td class="wrap">Gira CUE MIX verso destra (master) o accendi CUE sul canale; controlla CUE GAIN sul Mixtrack.</td></tr>
+        <tr><td>BPM sbagliato (metà o doppio)</td><td class="wrap">Premi il BPM del deck a tempo 4 volte; TAP con SHIFT torna al valore analizzato.</td></tr>
+        <tr><td>I due brani non vanno a tempo</td><td class="wrap">Se SYNC è oro (TEMPO), ripremilo per tornare blu. Se resta fuori, correggi i BPM con il tap.</td></tr>
+        <tr><td>Scratch troppo veloce o lento</td><td class="wrap">Fai l'ultimo passo della configurazione guidata (un giro completo del piatto).</td></tr>
+        <tr><td>Le mani non vengono riconosciute</td><td class="wrap">Più luce, mani intere nell'inquadratura, sfondo non troppo confuso. Controlla le scritte sotto le mani nell'anteprima.</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 15 -->
+    <section id="limiti">
+      <h2><span class="n">15</span>Limiti noti</h2>
+      <ul class="clean">
+        <li><b>Keylock</b> (tempo senza cambiare tono): non disponibile in questa versione.</li>
+        <li><b>Voce off / musica off</b>: separazione approssimata (mid/side), non pulita come gli stems con intelligenza artificiale.</li>
+        <li><b>Libreria</b>: i brani vanno riaggiunti a ogni riavvio della pagina.</li>
+        <li><b>Comandi vocali</b>: solo dimostrativi, richiedono internet.</li>
+        <li><b>Preset Mixtrack</b>: Pitch, Filter, Level, Bend +, Browse (rotazione), Wet/Dry e leve FX vanno ancora collegati con LEARN.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>CD FlyDJ Track Pro · scheda tecnica v1.0 · ottobre 2026</span>
+    <span>Numark, Mixtrack, Serato e Pioneer sono marchi dei rispettivi proprietari.</span>
+  </footer>
+</div>

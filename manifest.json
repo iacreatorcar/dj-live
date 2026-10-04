@@ -1,0 +1,14 @@
+{
+  "name": "CD FlyDJ Track Pro",
+  "short_name": "FlyDJ",
+  "description": "Console DJ CD FlyDJ Track Pro per Numark Mixtrack Pro FX",
+  "start_url": "dj-live.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0d0d0f",
+  "theme_color": "#0d0d0f",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
