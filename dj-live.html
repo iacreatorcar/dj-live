@@ -332,7 +332,7 @@ body.tablet .bpm{font-size:26px}
 <aside id="midi" class="drawer">
   <h3>Controller MIDI <button id="mClose">✕</button></h3>
   <div class="mst" id="mStat">MIDI non ancora attivo.</div>
-  <div class="mrow"><button id="mWiz" style="--c:#2f6fe0" class="on">CONFIGURAZIONE GUIDATA</button><button id="mExp">ESPORTA</button><button id="mImp">IMPORTA</button><button id="mClr">AZZERA</button><button id="mPre" style="--c:#3cc85a" class="on">PRESET MIXTRACK</button><button id="mMix" style="--c:#f5b84a" class="on">🎚 RIFAI MIXER E FX</button><input type="file" id="mImpF" accept=".json,application/json" hidden></div>
+  <div class="mrow"><button id="mWiz" style="--c:#2f6fe0" class="on">CONFIGURAZIONE GUIDATA</button><button id="mExp">ESPORTA</button><button id="mImp">IMPORTA</button><button id="mClr">AZZERA</button><button id="mPre" style="--c:#3cc85a" class="on">PRESET MIXTRACK</button><button id="mMix" style="--c:#f5b84a" class="on">🎚 RIFAI MIXER E FX</button><button id="mFull" style="--c:#e04fa0" class="on">🎛 MAPPA COMPLETA (tranne mixer)</button><input type="file" id="mImpF" accept=".json,application/json" hidden></div>
   <div id="wiz"><div id="wProg"></div><div id="wText"></div><div id="wHint"></div>
     <div class="mrow"><button id="wBack">← INDIETRO</button><button id="wSkip">SALTA</button><button id="wStop">STOP</button></div></div>
   <h4>ASSEGNA UN SINGOLO COMANDO</h4>
@@ -1248,20 +1248,9 @@ try{MIDI.map=JSON.parse(localStorage.getItem('djfly.midimap')||'{}')}catch(e){MI
    - mixer canale: LEVEL 22 · HI 23 · MID 24 · LOW 25 · FILTER 26 · VOLUME 28 · CUE cuffia nota 27
    - PITCH = CC 9 + CC 41 (14 bit, alta precisione) · SYNC nota 32 · jog = CC 6 + tocco nota 6
    - leve FX: CC 4 sul canale 8 (deck 1) e 9 (deck 2) · tasti FX note 0-5 sui canali 8/9 · BEATS encoder CC 5 ch 8 */
-const PRESET_MIXTRACK=(()=>{const m={},S=(k,a,mode='btn')=>m[k]={a,m:mode};
-  [['A',0,4,8],['B',1,5,9]].forEach(([d,c,p,f])=>{
-    S(`n:${c}:1`,d+'.play');S(`n:${c}:2`,d+'.cue');S(`n:${c}:7`,d+'.shift');S(`n:${c}:11`,d+'.bendDn');S(`n:${c}:32`,d+'.sync');
-    S(`n:${c}:6`,d+'.jogTouch');S(`c:${c}:6`,d+'.jog','rel');S(`c:${c}:9`,d+'.pitch','abs');
-    S(`c:${c}:22`,d+'.level','abs');S(`c:${c}:23`,d+'.high','abs');S(`c:${c}:24`,d+'.mid','abs');S(`c:${c}:25`,d+'.low','abs');
-    S(`c:${c}:26`,d+'.filter','abs');S(`c:${c}:28`,d+'.vol','abs');S(`n:${c}:27`,d+'.pfl');
-    S(`n:${p}:13`,d+'.modeCue');S(`n:${p}:7`,d+'.modeLoop');S(`n:${p}:11`,d+'.modeFader');S(`n:${p}:20`,d+'.modeSampler');
-    [21,22,23,24].forEach((n,i)=>S(`n:${p}:${n}`,d+'.pad'+(i+1)));
-    S(`n:${p}:25`,d+'.stutter');S(`n:${p}:26`,d+'.prev');S(`n:${p}:27`,d+'.back');S(`n:${p}:64`,d+'.fwd');
-    S(`n:${p}:52`,d+'.loop');S(`n:${p}:53`,d+'.loopHalf');
-    S(`c:${f}:4`,d+'.fxUp','ccnz')});                                   // leva FX: qualsiasi posizione diversa dal centro = ON
-  S('n:15:2','A.loopDouble');S('n:15:3','B.loopDouble');S('c:15:8','xf','abs');S('c:14:35','master','abs');S('c:8:5','beats','rel');
-  S('n:8:0','fx:HPF');S('n:8:1','fx:LPF');S('n:8:2','fx:Flanger');S('n:9:3','fx:Echo');S('n:9:4','fx:Reverb');S('n:9:5','fx:Phaser');
-  m.$pitchDir={A:1,B:1};return m})();
+/* Preset Numark Mixtrack Pro FX: mappatura completa fatta sul controller reale (04/10/2026), mixer + tasti + SHIFT + scene pad. */
+const PRESET_MIXTRACK=(()=>{const r={"c:0:9":["A.pitch","abs"],"c:0:22":["A.level","abs"],"c:0:23":["A.high","abs"],"c:0:24":["A.mid","abs"],"c:0:25":["A.low","abs"],"c:0:26":["A.filter","abs"],"c:0:28":["A.vol","abs"],"n:0:27":["A.pfl","btn"],"c:8:4":["A.fxUp","ccnz"],"c:1:9":["B.pitch","abs"],"c:1:22":["B.level","abs"],"c:1:23":["B.high","abs"],"c:1:24":["B.mid","abs"],"c:1:25":["B.low","abs"],"c:1:26":["B.filter","abs"],"c:1:28":["B.vol","abs"],"n:1:27":["B.pfl","btn"],"c:9:4":["B.fxUp","ccnz"],"c:15:8":["xf","abs"],"c:14:35":["master","abs"],"c:8:5":["beats","rel"],"n:8:0":["fx:HPF","btn"],"n:8:1":["fx:LPF","btn"],"n:8:2":["fx:Flanger","btn"],"n:9:3":["fx:Echo","btn"],"n:9:4":["fx:Reverb","btn"],"n:9:5":["fx:Phaser","btn"],"n:0:0":["A.play","btn"],"n:0:1":["A.cue","btn"],"n:0:2":["A.sync","btn"],"n:0:32":["A.shift","btn"],"n:0:7":["A.scratch","btn"],"n:0:12":["A.bendDn","btn"],"n:0:11":["A.bendUp","btn"],"n:0:6":["A.jogTouch","btn"],"c:0:6":["A.jog","rel"],"n:4:64":["A.loop","btn"],"n:4:52":["A.loopHalf","btn"],"n:4:53":["A.loopDouble","btn"],"n:15:2":["A.load","btn"],"n:4:24":["A.stutter","btn"],"n:4:25":["A.prev","btn"],"n:4:26":["A.back","btn"],"n:4:27":["A.fwd","btn"],"n:0:4":["A.play@s","btn"],"n:0:5":["A.cue@s","btn"],"n:0:3":["A.sync@s","btn"],"n:0:8":["A.scratch@s","btn"],"n:0:44":["A.bendDn@s","btn"],"n:0:43":["A.bendUp@s","btn"],"n:4:65":["A.loop@s","btn"],"n:4:54":["A.loopHalf@s","btn"],"n:4:55":["A.loopDouble@s","btn"],"n:4:32":["A.stutter@s","btn"],"n:4:33":["A.prev@s","btn"],"n:4:34":["A.back@s","btn"],"n:4:35":["A.fwd@s","btn"],"n:4:0":["A.modeCue","btn"],"n:4:20":["A.pad1","btn"],"n:4:21":["A.pad2","btn"],"n:4:22":["A.pad3","btn"],"n:4:23":["A.pad4","btn"],"n:4:2":["A.modeCue@s","btn"],"n:4:13":["A.scene:cue:2@s","btn"],"n:4:31":["A.modeLoop@s","btn"],"n:4:28":["A.pad1@s","btn"],"n:4:29":["A.pad2@s","btn"],"n:4:30":["A.pad3@s","btn"],"n:4:7":["A.modeFader","btn"],"n:4:11":["A.modeSampler","btn"],"n:4:15":["A.scene:sampler:3","btn"],"n:1:0":["B.play","btn"],"n:1:1":["B.cue","btn"],"n:1:2":["B.sync","btn"],"n:1:32":["B.shift","btn"],"n:1:7":["B.scratch","btn"],"n:1:12":["B.bendDn","btn"],"n:1:11":["B.bendUp","btn"],"n:1:6":["B.jogTouch","btn"],"c:1:6":["B.jog","rel"],"n:5:64":["B.loop","btn"],"n:5:52":["B.loopHalf","btn"],"n:5:53":["B.loopDouble","btn"],"n:5:24":["B.stutter","btn"],"n:5:25":["B.prev","btn"],"n:5:26":["B.back","btn"],"n:5:27":["B.fwd","btn"],"n:1:4":["B.play@s","btn"],"n:1:5":["B.cue@s","btn"],"n:1:3":["B.sync@s","btn"],"n:1:8":["B.scratch@s","btn"],"n:1:44":["B.bendDn@s","btn"],"n:1:43":["B.bendUp@s","btn"],"n:5:65":["B.loop@s","btn"],"n:5:54":["B.loopHalf@s","btn"],"n:5:55":["B.loopDouble@s","btn"],"n:5:32":["B.stutter@s","btn"],"n:5:33":["B.prev@s","btn"],"n:5:34":["B.back@s","btn"],"n:5:35":["B.fwd@s","btn"],"n:5:0":["B.modeCue","btn"],"n:5:20":["B.pad1","btn"],"n:5:21":["B.pad2","btn"],"n:5:22":["B.pad3","btn"],"n:5:23":["B.pad4","btn"],"n:5:2":["B.modeCue@s","btn"],"n:5:13":["B.scene:cue:2@s","btn"],"n:5:31":["B.modeLoop@s","btn"],"n:5:28":["B.pad1@s","btn"],"n:5:29":["B.pad2@s","btn"],"n:5:30":["B.pad3@s","btn"],"n:5:7":["B.modeFader","btn"],"n:5:11":["B.modeSampler","btn"],"n:5:15":["B.scene:sampler:3","btn"],"n:15:3":["B.load","btn"],"c:15:0":["browse","rel"],"c:15:1":["browse@s","rel"],"n:15:7":["browsePress","btn"],"n:8:9":["tap","btn"],"n:9:9":["tap@s","btn"]},m={};for(const k in r)m[k]={a:r[k][0],m:r[k][1]};
+  m.$pitchDir={A:1,B:1};m.$jog=2149;m.$jogSign=1;return m})();
 const saveMap=()=>{try{localStorage.setItem('djfly.midimap',JSON.stringify(MIDI.map))}catch(e){}};
 const rel=v=>v>=1&&v<=40?v:v>=88&&v<=127?v-128:v-64;        // encoder relativi: complemento a 2 oppure offset 64
 const keyOf=a=>Object.keys(MIDI.map).find(k=>k[0]!=='$'&&MIDI.map[k].a===a);
@@ -1279,7 +1268,7 @@ function midiPorts(){
   MIDI.outs=outs.filter(o=>!/microsoft|wavetable/i.test(o.name)&&ins.some(i=>{const a=norm(i.name),b=norm(o.name);return a===b||a.includes(b.slice(0,8))||b.includes(a.slice(0,8))}));
   MIDI.led={};
   // preset incorporato: si carica da solo se la mappa è vuota; quando esce una versione nuova del preset viene proposta una volta
-  const PRESET_VER='2',isMix=ins.some(i=>/mixtrack|numark/i.test(i.name));let pv=null;try{pv=localStorage.getItem('djfly.presetVer')}catch(e){}
+  const PRESET_VER='3',isMix=ins.some(i=>/mixtrack|numark/i.test(i.name));let pv=null;try{pv=localStorage.getItem('djfly.presetVer')}catch(e){}
   if(PRESET_MIXTRACK&&isMix&&(!Object.keys(MIDI.map).some(k=>k[0]!=='$')||(pv!==PRESET_VER&&confirm('È disponibile la mappa aggiornata del Numark Mixtrack Pro FX (mixer, pitch, sync, leve FX corretti).\n\nOK = usa la mappa nuova · Annulla = tieni la tua')))){
     MIDI.map=JSON.parse(JSON.stringify(PRESET_MIXTRACK));saveMap();toast('Numark Mixtrack Pro FX: mappa caricata')}
   if(isMix)try{localStorage.setItem('djfly.presetVer',PRESET_VER)}catch(e){}
@@ -1363,13 +1352,20 @@ FX_TYPES.forEach(t=>GLOBAL_ACT['fx:'+t]=v=>{if(!v)return;
   const d=FOCUS||A;if(d.fx.type===t&&d.fx.on){d.fx.setOn(false);return toast(`FX deck ${d.num}: ${t} spento`)}
   setFxType(d,t);d.fx.setOn(true);toast(`FX deck ${d.num}: ${t} acceso`)});
 function runAction(id,v,xs,mode){
+  if(id.endsWith('@s')){id=id.slice(0,-2);xs=true}                     // "@s" = codice che il controller manda con SHIFT tenuto
   const dot=id.indexOf('.');
+  if(dot>0&&id.slice(dot+1).startsWith('scene:')){                     // pad di una scena: porta il deck in quella modalità e premi il pad
+    const d=decks[id.slice(0,dot)],[,m,i]=id.slice(dot+1).split(':');if(!d)return;d.focus();
+    if(v&&d.mode!==m&&d.mode!=='extra')d.setMode(m);return d.padPress(+i-1,!!v,xs||d.shift)}
   if(dot>0){const d=decks[id.slice(0,dot)],n=id.slice(dot+1),f=DECK_ACT[n];if(!f||!d)return;
     if(!['vol','xf','level','high','mid','low','filter','pfl','shift'].includes(n))d.focus();f(d,v,xs||d.shift)}
   else{const f=GLOBAL_ACT[id];if(f)f(v,xs||anyShift(),mode)}}
 /* Luci del controller: rimanda lo stato a ogni tasto mappato */
 function ledState(id){
+  if(id.endsWith('@s'))return null;                                    // le varianti con SHIFT non comandano luci
   const dot=id.indexOf('.');
+  if(dot>0&&id.slice(dot+1).startsWith('scene:')){const d=decks[id.slice(0,dot)],[,m,i]=id.slice(dot+1).split(':');
+    return d.mode===m||d.mode==='extra'?d.padLit(+i-1):false}
   if(dot>0){const d=decks[id.slice(0,dot)],n=id.slice(dot+1);
     switch(n){case 'play':return d.playing||!!(d.scr&&d.scr.was);case 'cue':return !!d.buf&&(d.prev||!d.playing);case 'sync':return d.synced;
       case 'scratch':return d.scratchOn;case 'shift':return d.shift;case 'loop':return !!d.loop;case 'pfl':return d.pfl;
@@ -1439,6 +1435,45 @@ function wizStart(){
   if(skip.deck)done.add('$mirror-deck');if(skip.mix)done.add('$mirror-mix');
   MIDI.learn={steps,i:-1,skip,done,cand:null,tm:null,sum:0};
   $('wiz').classList.add('open');wizNext()}
+/* MAPPA COMPLETA tranne il mixer: ogni tasto con e senza SHIFT e le 4 scene dei pad
+   (tasto modalità + 4 pad, poi SHIFT + tasto modalità + SHIFT + 4 pad). Il mixer già mappato resta com'è. */
+const MIXER_KEEP=new Set([...['A','B'].flatMap(d=>['vol','level','high','mid','low','filter','pfl','pitch','fxUp','fxDown'].map(n=>d+'.'+n)),
+  'xf','master','cueMix','beats','wet',...FX_TYPES.map(t=>'fx:'+t)]);
+function buildFullSteps(){
+  const S=[],add=(id,kind,text,x={})=>S.push({id,kind,text,...x});
+  const deck=(dk,n)=>{
+    const b=(a,t)=>add(`${dk}.${a}`,'btn',t,{dk}),sh=(a,t)=>add(`${dk}.${a}@s`,'btn',`Tieni SHIFT e ${t}`,{dk,base:`${dk}.${a}`});
+    b('play',`Deck ${n} · premi PLAY`);b('cue',`Deck ${n} · premi CUE`);b('sync',`Deck ${n} · premi SYNC`);b('shift',`Deck ${n} · premi SHIFT`);
+    b('scratch',`Deck ${n} · premi SCRATCH`);b('bendDn',`Deck ${n} · premi PITCH BEND −`);b('bendUp',`Deck ${n} · premi PITCH BEND +`);
+    add(`${dk}.jogTouch`,'btn',`Deck ${n} · appoggia la mano SOPRA il piatto`,{dk});
+    add(`${dk}.jog`,'rel',`Deck ${n} · gira il piatto con la mano sopra, poi fermati`,{dk});
+    add(`${dk}.jogRing`,'rel',`Deck ${n} · gira solo l’ANELLO ESTERNO del piatto (se non succede nulla premi SALTA)`,{dk});
+    b('loop',`Deck ${n} · premi LOOP`);b('loopHalf',`Deck ${n} · premi LOOP 1/2`);b('loopDouble',`Deck ${n} · premi LOOP x2`);
+    b('load',`Deck ${n} · premi LOAD ${n} (al centro, vicino a BROWSE)`);
+    const bot=['STUTTER','⏮ (traccia precedente)','◀◀','▶▶'];
+    ['stutter','prev','back','fwd'].forEach((a,i)=>b(a,`Deck ${n} · fila bassa: premi ${bot[i]}`));
+    sh('play',`premi PLAY (deck ${n})`);sh('cue',`premi CUE (deck ${n})`);sh('sync',`premi SYNC (deck ${n})`);sh('scratch',`premi SCRATCH (deck ${n})`);
+    sh('bendDn',`premi PITCH BEND − (deck ${n})`);sh('bendUp',`premi PITCH BEND + (deck ${n})`);
+    sh('loop',`premi LOOP (deck ${n})`);sh('loopHalf',`premi LOOP 1/2 (deck ${n})`);sh('loopDouble',`premi LOOP x2 (deck ${n})`);
+    ['stutter','prev','back','fwd'].forEach((a,i)=>sh(a,`premi ${bot[i]} nella fila bassa (deck ${n})`));
+    [['cue','CUE','modeCue'],['loop','AUTO LOOP','modeLoop'],['fader','FADER CUTS','modeFader'],['sampler','SAMPLER','modeSampler']].forEach(([m,lab,mb])=>{
+      b(mb,`Deck ${n} · scena ${lab}: premi il tasto modalità ${lab}`);
+      for(let i=1;i<=4;i++)add(`${dk}.scene:${m}:${i}`,'btn',`Deck ${n} · scena ${lab}: premi il PAD ${i} (fila alta)`,{dk,scene:true,idx:i});
+      add(`${dk}.${mb}@s`,'btn',`Deck ${n} · scena ${lab} + SHIFT: tieni SHIFT e premi il tasto ${lab}`,{dk,base:`${dk}.${mb}`});
+      for(let i=1;i<=4;i++)add(`${dk}.scene:${m}:${i}@s`,'btn',`Deck ${n} · scena ${lab} + SHIFT: tieni SHIFT e premi il PAD ${i}`,{dk,scene:true,idx:i,base:`${dk}.scene:${m}:${i}`})})};
+  deck('A',1);
+  S.push({kind:'mirror2',id:'$mirror2',text:'Premi PLAY del deck 2 (se il deck 2 è uguale al deck 1 lo copio da solo)'});
+  deck('B',2);
+  add('browse','rel','Gira la manopola BROWSE, poi fermati');add('browse@s','rel','Tieni SHIFT e gira BROWSE, poi fermati',{base:'browse'});
+  add('browsePress','btn','Premi la manopola BROWSE');add('tap','btn','Premi TAP');add('tap@s','btn','Tieni SHIFT e premi TAP',{base:'tap'});
+  S.push({kind:'jogcal',id:'$jogcal',text:'Taratura scratch: fai un segno sul piatto del deck 1 e giralo di UN giro esatto in senso orario (mano sopra), poi fermati'});
+  return S}
+function wizStartFull(){
+  const keep=Object.entries(MIDI.map).filter(([k,m])=>k[0]==='$'||MIXER_KEEP.has(m.a));
+  if(!confirm(`Mappatura completa del Mixtrack (tranne il mixer).\n\nRestano i ${keep.filter(([k])=>k[0]!=='$').length} comandi del mixer già mappati; tutto il resto viene rifatto passo per passo, con SHIFT e le 4 scene dei pad.\n\nIniziare?`))return;
+  MIDI.map=Object.fromEntries(keep);delete MIDI.map.$shift;MIDI.led={};
+  MIDI.learn={steps:buildFullSteps(),i:-1,skip:{},done:new Set(),same:new Set(),cand:null,tm:null,sum:0};
+  $('wiz').classList.add('open');wizNext('Segui lo schermo · se un comando non esiste premi SALTA · INDIETRO per rifare un passo')}
 /* Ricalibra solo mixer, fader ed effetti (entrambi i deck), senza toccare il resto della mappa */
 function wizStartMixer(){
   const st=[],D=(dk,n)=>[
@@ -1474,7 +1509,31 @@ function exportMap(){const a=document.createElement('a');a.href=URL.createObject
   a.download='djfly-mixtrack-pro-fx.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function learnFeed(key,kind,raw,val){
   const L=MIDI.learn,st=L.steps[L.i];if(!st)return;
-  const mapped=MIDI.map[key];
+  const mapped=MIDI.map[key],press=(kind==='btn'&&val===1)||(kind==='cc'&&(st.kind==='rel'||raw===127));
+  // --- mappatura completa: varianti con SHIFT, scene dei pad, copia del deck 2 ---
+  if(st.base&&press){                                                  // con SHIFT arriva lo stesso codice del tasto normale?
+    const bk=keyOf(st.base)||keyOf(st.base.replace(/scene:\w+:(\d)/,'pad$1'));
+    if(bk===key){L.same.add(st.id);return wizNext('Con SHIFT arriva lo stesso codice: lo SHIFT lo gestisce il programma ✓')}}
+  if(st.scene&&press&&mapped){                                         // i pad mandano lo stesso codice in ogni modalità?
+    const mm=mapped.a.match(/^([AB])\.(?:scene:\w+:|pad)(\d)(@s)?$/);
+    if(mm&&mm[1]===st.dk&&+mm[2]===st.idx&&!!mm[3]===st.id.endsWith('@s')){
+      MIDI.map[key]={a:`${st.dk}.pad${st.idx}${mm[3]||''}`,m:mapped.m};L.same.add(st.id);
+      return wizNext('Questo pad manda lo stesso codice in ogni modalità: la modalità la gestisce il programma ✓')}}
+  if(st.kind==='mirror2'){
+    if(!(kind==='btn'&&val===1)||mapped)return;
+    const ref=keyOf('A.play');if(!ref)return wizNext();
+    const [t1,c1,n1]=ref.split(':'),[t2,c2,n2]=key.split(':');
+    if(t1===t2&&n1===n2&&c1!==c2){const dc=c2-c1,chA=[String(+c1),String(+c1+4)];let copied=0;
+      for(const [k,m] of Object.entries({...MIDI.map})){
+        if(k[0]==='$'||!m.a.startsWith('A.')||MIXER_KEEP.has(m.a.replace(/@s$/,'')))continue;
+        const [t,c,n]=k.split(':');if(!chA.includes(c))continue;       // solo i canali del deck 1 e dei suoi pad
+        const nk=`${t}:${+c+dc}:${n}`;if(MIDI.map[nk])continue;
+        MIDI.map[nk]={a:'B.'+m.a.slice(2),m:m.m};L.done.add('B.'+m.a.slice(2));copied++;
+        const sc=m.a.match(/^A\.pad(\d)(@s)?$/);if(sc)L.steps.forEach(s=>{if(s.dk==='B'&&s.scene&&s.idx===+sc[1]&&!!sc[2]===s.id.endsWith('@s'))L.done.add(s.id)})}
+      L.same.forEach(id=>{if(id.startsWith('A.'))L.done.add('B.'+id.slice(2))});
+      L.steps.forEach(s=>{if(s.dk==='B'&&s.id&&keyOf(s.id))L.done.add(s.id)});
+      return wizNext(`Deck 2 copiato dal deck 1 (${copied} comandi) ✓ — restano solo i tasti su canali comuni`)}
+    assign(key,'B.play','btn');L.done.add('B.play');return wizNext()}
   if(st.kind==='mirror'){
     if(mapped||!(st.grp==='deck'?kind==='btn'&&val===1:kind!=='btn'))return;
     const ref=keyOf(st.ref);if(!ref)return wizNext();
@@ -1511,6 +1570,7 @@ $('mWiz').onclick=async()=>{if(!await midiInit())return;if(!MIDI.acc.inputs.size
 $('wSkip').onclick=()=>wizNext();$('wBack').onclick=wizBack;$('wStop').onclick=()=>wizEnd(false);
 $('mClr').onclick=()=>{if(!confirm('Cancellare la mappa MIDI salvata?'))return;MIDI.map={};saveMap();if(MIDI.acc)midiPorts();toast('Mappa cancellata')};
 $('mExp').onclick=exportMap;
+$('mFull').onclick=async()=>{if(!await midiInit())return;if(!MIDI.acc.inputs.size)return toast('Collega prima il controller');wizStartFull()};
 $('mMix').onclick=async()=>{if(!await midiInit())return;if(!MIDI.acc.inputs.size)return toast('Collega prima il controller');wizStartMixer()};
 $('mPre').onclick=()=>{if(Object.keys(MIDI.map).some(k=>k[0]!=='$')&&!confirm('Sostituire la mappa attuale con il preset Numark Mixtrack Pro FX incorporato?'))return;
   MIDI.map=JSON.parse(JSON.stringify(PRESET_MIXTRACK));saveMap();MIDI.led={};if(MIDI.acc)midiPorts();if(LEARN.on)learnMarks();
