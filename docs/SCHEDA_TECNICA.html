@@ -81,13 +81,13 @@ html{scroll-behavior:smooth}
     <div>
       <div class="eyebrow">Scheda tecnica e manuale d'uso</div>
       <h1>CD FlyDJ <em>Track Pro</em></h1>
-      <p class="lede">Console DJ a due deck che gira nel browser, pensata per il controller Numark Mixtrack Pro FX. Si usa con il controller, con lo schermo touch, con la tastiera, con i gesti delle mani davanti alla webcam e, in modalità dimostrativa, con la voce.</p>
+      <p class="lede">Console DJ a due deck che gira nel browser, pensata per il controller FX-2. Si usa con il controller, con lo schermo touch, con la tastiera, con i gesti delle mani davanti alla webcam e, in modalità dimostrativa, con la voce.</p>
     </div>
     <div class="meta">
       <span>Versione</span><b>1.0 · ottobre 2026</b>
       <span>File</span><b>dj-live.html</b>
       <span>Browser</span><b>Chrome / Edge</b>
-      <span>Controller</span><b>Mixtrack Pro FX</b>
+      <span>Controller</span><b>controller FX-2</b>
     </div>
   </header>
 
@@ -101,7 +101,7 @@ html{scroll-behavior:smooth}
       <li><a href="#pad"><span>05</span>Pad e loop</a></li>
       <li><a href="#mixer"><span>06</span>Mixer, FX, sampler</a></li>
       <li><a href="#libreria"><span>07</span>Libreria e REC</a></li>
-      <li><a href="#controller"><span>08</span>Controller Numark</a></li>
+      <li><a href="#controller"><span>08</span>Controller</a></li>
       <li><a href="#audio"><span>09</span>Casse e cuffia</a></li>
       <li><a href="#gesti"><span>10</span>Gesti delle mani</a></li>
       <li><a href="#voce"><span>11</span>Comandi vocali</a></li>
@@ -126,7 +126,7 @@ html{scroll-behavior:smooth}
         <tr><td>Formati audio</td><td class="wrap">MP3, WAV, M4A/AAC, FLAC, OGG, OPUS; AIFF dove il browser lo supporta.</td></tr>
         <tr><td>Uscita audio</td><td class="wrap">Stereo, oppure 4 canali con scheda DJ (casse 1-2, cuffia 3-4) e CUE MIX software.</td></tr>
         <tr><td>Registrazione</td><td class="wrap">Mix in WAV 16 bit stereo, circa 600 MB per ora.</td></tr>
-        <tr><td>Controller</td><td class="wrap">Numark Mixtrack Pro FX con preset incorporato; qualsiasi controller MIDI tramite LEARN.</td></tr>
+        <tr><td>Controller</td><td class="wrap">controller FX-2 con preset incorporato; qualsiasi controller MIDI tramite LEARN.</td></tr>
         <tr><td>Gesti</td><td class="wrap">Webcam + riconoscimento delle mani elaborato sul dispositivo (fino a 2 mani).</td></tr>
         <tr><td>Voce <span class="tag demo">demo</span></td><td class="wrap">Riconoscimento vocale di Chrome in italiano, circa 1 s di latenza, richiede internet.</td></tr>
       </table></div>
@@ -136,9 +136,9 @@ html{scroll-behavior:smooth}
     <section id="avvio">
       <h2><span class="n">02</span>Avvio rapido</h2>
       <ol class="steps">
-        <li><div><b>Chiudi Serato</b> e gli altri programmi DJ. Su Windows il controller può essere usato da un solo programma alla volta.</div></li>
-        <li><div>Collega il Mixtrack via USB, poi apri <code>dj-live.html</code> in <b>Chrome</b> con doppio clic. Evita l'anteprima di VS Code e le finestre in incognito: lì le impostazioni non restano salvate.</div></li>
-        <li><div>Premi <kbd>🎛 MIDI</kbd> e consenti l'accesso MIDI. Con una mappa vuota il preset del Mixtrack si carica da solo; altrimenti premi <kbd>PRESET MIXTRACK</kbd>.</div></li>
+        <li><div><b>Chiudi gli altri programmi DJ</b>. Su Windows il controller può essere usato da un solo programma alla volta.</div></li>
+        <li><div>Collega il controller via USB, poi apri <code>dj-live.html</code> in <b>Chrome</b> con doppio clic. Evita l'anteprima di VS Code e le finestre in incognito: lì le impostazioni non restano salvate.</div></li>
+        <li><div>Premi <kbd>🎛 MIDI</kbd> e consenti l'accesso MIDI. Con una mappa vuota il preset del controller si carica da solo; altrimenti premi <kbd>PRESET CONTROLLER</kbd>.</div></li>
         <li><div>Nello stesso pannello premi <kbd>🔊 TEST AUDIO</kbd>: senti un bip sulle casse e uno in cuffia.</div></li>
         <li><div>Premi <kbd>+ AGGIUNGI BRANI</kbd> (o trascina i file nella libreria). L'analisi dei BPM parte da sola.</div></li>
         <li><div>Seleziona un brano e premi <b>LOAD</b> sul deck, poi <b>PLAY</b>. Carica il secondo brano sull'altro deck e premi <b>SYNC</b>.</div></li>
@@ -219,7 +219,7 @@ html{scroll-behavior:smooth}
         <div class="panel"><h3>Canale</h3><p>LEVEL/TRIM, HI/TREBLE, MID, LOW/BASS (fino a −26 dB = taglio), FILTER/COLOR, fader del volume con VU, tasto <b>CUE</b> per la cuffia.</p></div>
         <div class="panel"><h3>Crossfader</h3><p>Curva a potenza costante. Doppio clic al centro, frecce <kbd>←</kbd> <kbd>→</kbd> da tastiera.</p></div>
         <div class="panel"><h3>Effetti per deck</h3><p>FX 1 a sinistra (deck 1), FX 2 a destra (deck 2): HPF, LPF, Flanger, Echo, Reverb, Phaser, con BEATS (⅛…8), WET/DRY e ON. I tasti FX del controller agiscono sul deck con la leva accesa, o su entrambi.</p></div>
-        <div class="panel"><h3>Sound Color FX</h3><p>Solo nelle skin Pioneer: DUB ECHO, SWEEP, NOISE, FILTER e PARAMETER, sulla manopola COLOR di ogni canale. Ripremi il tasto acceso per tornare a FILTER.</p></div>
+        <div class="panel"><h3>Color FX</h3><p>Solo nelle skin Club e All-in-One: DUB ECHO, SWEEP, NOISE, FILTER e PARAMETER, sulla manopola COLOR di ogni canale. Ripremi il tasto acceso per tornare a FILTER.</p></div>
         <div class="panel"><h3>Sampler</h3><p>4 slot con volume. Clic = suona; con SHIFT carica il brano selezionato o ferma il campione.</p></div>
         <div class="panel"><h3>TAP</h3><p>Tap dei BPM sul deck usato per ultimo; con SHIFT torna ai BPM analizzati.</p></div>
       </div>
@@ -246,13 +246,13 @@ html{scroll-behavior:smooth}
 
     <!-- 08 -->
     <section id="controller">
-      <h2><span class="n">08</span>Controller Numark Mixtrack Pro FX</h2>
+      <h2><span class="n">08</span>Controller FX-2</h2>
       <p>Il deck 1 usa il canale MIDI 0 (pad sul canale 4), il deck 2 il canale 1 (pad sul canale 5).</p>
       <div class="grid2">
-        <div class="panel"><h3>Preset incorporato</h3><p>Si carica da solo quando colleghi il controller e non c'è una mappa salvata. Per ricaricarlo: 🎛 MIDI → <b>PRESET MIXTRACK</b>.</p></div>
+        <div class="panel"><h3>Preset incorporato</h3><p>Si carica da solo quando colleghi il controller e non c'è una mappa salvata. Per ricaricarlo: 🎛 MIDI → <b>PRESET CONTROLLER</b>.</p></div>
         <div class="panel"><h3>🎯 LEARN</h3><p>Premi LEARN, tocca un comando sullo schermo (diventa giallo), muovi lo stesso comando sul controller (diventa verde). Per il piatto: tocca il jog, poi giralo. <b>CANCELLA</b> scollega, <b>FINE</b> o <kbd>Esc</kbd> salva.</p></div>
         <div class="panel"><h3>Configurazione guidata</h3><p>Lo schermo chiede un comando alla volta. Se trova già una mappa, completa solo quello che manca. Alla fine salva una copia nei Download.</p></div>
-        <div class="panel"><h3>Esporta / importa</h3><p>Salva la mappa in <code>djfly-mixtrack-pro-fx.json</code> per usarla su un altro PC o browser.</p></div>
+        <div class="panel"><h3>Esporta / importa</h3><p>Salva la mappa in <code>djfly-controller-map.json</code> per usarla su un altro PC o browser.</p></div>
       </div>
       <p class="muted">Il <b>MONITOR</b> in fondo al pannello MIDI mostra ogni messaggio ricevuto (es. <code>n:0:1 127 → A.play</code>): serve a capire se il controller sta comunicando.</p>
     </section>
@@ -262,7 +262,7 @@ html{scroll-behavior:smooth}
       <h2><span class="n">09</span>Casse e cuffia</h2>
       <div class="tbl"><table>
         <tr><th>Situazione</th><th>Cosa succede</th></tr>
-        <tr><td>Scheda a 4 canali (Mixtrack)</td><td class="wrap">Master sulle uscite RCA (canali 1-2), cuffia sui canali 3-4. Si attiva da solo con una scheda a 4 canali, o scegliendo la scheda in 🎛 MIDI → <b>RILEVA SCHEDE AUDIO</b>.</td></tr>
+        <tr><td>Scheda a 4 canali (controller)</td><td class="wrap">Master sulle uscite RCA (canali 1-2), cuffia sui canali 3-4. Si attiva da solo con una scheda a 4 canali, o scegliendo la scheda in 🎛 MIDI → <b>RILEVA SCHEDE AUDIO</b>.</td></tr>
         <tr><td>CUE MIX</td><td class="wrap">La cuffia mescola i canali con CUE acceso e il master. Di base a metà, quindi senti sempre qualcosa.</td></tr>
         <tr><td>Casse del PC / tablet</td><td class="wrap">Stereo: la cuffia sente il master.</td></tr>
         <tr><td>🔊 TEST AUDIO</td><td class="wrap">Bip a 440 Hz sulle casse e 660 Hz in cuffia, con la diagnosi: master a zero, fader abbassati, crossfader dalla parte sbagliata, CUE MIX senza CUE acceso.</td></tr>
@@ -305,7 +305,7 @@ html{scroll-behavior:smooth}
 
     <!-- 12 -->
     <section id="tastiera">
-      <h2><span class="n">12</span>Tastiera (stile Serato)</h2>
+      <h2><span class="n">12</span>Tastiera (stile software DJ)</h2>
       <div class="tbl"><table>
         <tr><th>Funzione</th><th>Deck 1</th><th>Deck 2</th></tr>
         <tr><td>Play / pausa</td><td><kbd>W</kbd></td><td><kbd>S</kbd></td></tr>
@@ -321,7 +321,7 @@ html{scroll-behavior:smooth}
         <tr><td>Loop in / out</td><td><kbd>O</kbd> / <kbd>P</kbd></td><td><kbd>L</kbd> / <kbd>;</kbd></td></tr>
         <tr><td>Carica il brano selezionato</td><td><kbd>Shift</kbd>+<kbd>←</kbd></td><td><kbd>Shift</kbd>+<kbd>→</kbd></td></tr>
       </table></div>
-      <p class="muted">Generali: <kbd>↑</kbd> <kbd>↓</kbd> libreria · <kbd>←</kbd> <kbd>→</kbd> crossfader · <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> sampler (Alt = stop, Ctrl+Alt = carica) · <kbd>Ctrl</kbd>+<kbd>P</kbd> aggiungi a Prepare · <kbd>Ctrl</kbd>+<kbd>F</kbd> cerca · <kbd>Esc</kbd> esce da LEARN. I tasti seguono la posizione della tastiera americana, come in Serato. Su Windows <kbd>Alt</kbd>+<kbd>E</kbd> e <kbd>Alt</kbd>+<kbd>F</kbd> possono aprire il menu di Chrome.</p>
+      <p class="muted">Generali: <kbd>↑</kbd> <kbd>↓</kbd> libreria · <kbd>←</kbd> <kbd>→</kbd> crossfader · <kbd>Z</kbd> <kbd>X</kbd> <kbd>C</kbd> <kbd>V</kbd> sampler (Alt = stop, Ctrl+Alt = carica) · <kbd>Ctrl</kbd>+<kbd>P</kbd> aggiungi a Prepare · <kbd>Ctrl</kbd>+<kbd>F</kbd> cerca · <kbd>Esc</kbd> esce da LEARN. I tasti seguono la posizione della tastiera americana, come in software DJ. Su Windows <kbd>Alt</kbd>+<kbd>E</kbd> e <kbd>Alt</kbd>+<kbd>F</kbd> possono aprire il menu di Chrome.</p>
     </section>
 
     <!-- 13 -->
@@ -329,14 +329,14 @@ html{scroll-behavior:smooth}
       <h2><span class="n">13</span>Impostazioni e tablet</h2>
       <div class="tbl"><table>
         <tr><th>Voce in ⚙</th><th>Effetto</th></tr>
-        <tr><td>Skin</td><td class="wrap"><b>CD FlyDJ · Serato</b> (essenziale), <b>Pioneer DJM-750MK2</b> (mixer metallo, Beat FX con display, Sound Color FX), <b>Pioneer XDJ</b> (jog stile CDJ con anello LED, pad illuminati).</td></tr>
+        <tr><td>Skin</td><td class="wrap"><b>CD FlyDJ · Studio</b> (essenziale), <b>Club Mixer</b> (mixer metallo, Beat FX con display, Color FX), <b>All-in-One</b> (jog da lettore club con anello LED, pad illuminati).</td></tr>
         <tr><td>Anteprima camera</td><td class="wrap">Piccola / media / grande; posizione in uno dei 4 angoli o nascosta.</td></tr>
         <tr><td>Mano ferma = seleziona</td><td class="wrap">Attiva o spegne la selezione tenendo ferma la mano aperta.</td></tr>
         <tr><td>Modalità tablet</td><td class="wrap">Tasti, pad, manopole e fader più grandi; si accende da sola sugli schermi touch.</td></tr>
         <tr><td>Schermo sempre acceso</td><td class="wrap">Il tablet non va in standby durante il set.</td></tr>
         <tr><td>Schermo intero · Installa app</td><td class="wrap">Pieno schermo; installazione come app quando la pagina è online in HTTPS.</td></tr>
       </table></div>
-      <div class="note"><b>Samsung Tab.</b> Collega il Mixtrack con un adattatore USB-C OTG; se il controller non si accende, usa un hub USB alimentato. Su Android la cuffia separata non è disponibile: la cuffia sente il master.</div>
+      <div class="note"><b>Samsung Tab.</b> Collega il controller con un adattatore USB-C OTG; se il controller non si accende, usa un hub USB alimentato. Su Android la cuffia separata non è disponibile: la cuffia sente il master.</div>
     </section>
 
     <!-- 14 -->
@@ -344,11 +344,11 @@ html{scroll-behavior:smooth}
       <h2><span class="n">14</span>Risoluzione problemi</h2>
       <div class="tbl"><table>
         <tr><th>Problema</th><th>Soluzione</th></tr>
-        <tr><td>Il controller non viene visto</td><td class="wrap">Chiudi Serato, usa Chrome o Edge, cambia porta USB e ricarica la pagina. Nel MONITOR del pannello MIDI devono comparire i messaggi quando muovi i comandi.</td></tr>
+        <tr><td>Il controller non viene visto</td><td class="wrap">Chiudi gli altri programmi DJ, usa Chrome o Edge, cambia porta USB e ricarica la pagina. Nel MONITOR del pannello MIDI devono comparire i messaggi quando muovi i comandi.</td></tr>
         <tr><td>Un comando fa la cosa sbagliata</td><td class="wrap">🎯 LEARN → tocca il comando → CANCELLA → rifallo.</td></tr>
         <tr><td>La mappa sparisce</td><td class="wrap">Apri sempre la pagina in Chrome (non nell'anteprima di VS Code né in incognito). Tieni una copia con ESPORTA.</td></tr>
         <tr><td>Non si sente niente</td><td class="wrap">🔊 TEST AUDIO e leggi la diagnosi: master, fader, crossfader, CUE MIX, volume di Windows.</td></tr>
-        <tr><td>Cuffia muta</td><td class="wrap">Gira CUE MIX verso destra (master) o accendi CUE sul canale; controlla CUE GAIN sul Mixtrack.</td></tr>
+        <tr><td>Cuffia muta</td><td class="wrap">Gira CUE MIX verso destra (master) o accendi CUE sul canale; controlla CUE GAIN sul controller.</td></tr>
         <tr><td>BPM sbagliato (metà o doppio)</td><td class="wrap">Premi il BPM del deck a tempo 4 volte; TAP con SHIFT torna al valore analizzato.</td></tr>
         <tr><td>I due brani non vanno a tempo</td><td class="wrap">Se SYNC è oro (TEMPO), ripremilo per tornare blu. Se resta fuori, correggi i BPM con il tap.</td></tr>
         <tr><td>Scratch troppo veloce o lento</td><td class="wrap">Fai l'ultimo passo della configurazione guidata (un giro completo del piatto).</td></tr>
@@ -364,13 +364,13 @@ html{scroll-behavior:smooth}
         <li><b>Voce off / musica off</b>: separazione approssimata (mid/side), non pulita come gli stems con intelligenza artificiale.</li>
         <li><b>Libreria</b>: i brani vanno riaggiunti a ogni riavvio della pagina.</li>
         <li><b>Comandi vocali</b>: solo dimostrativi, richiedono internet.</li>
-        <li><b>Preset Mixtrack</b>: Pitch, Filter, Level, Bend +, Browse (rotazione), Wet/Dry e leve FX vanno ancora collegati con LEARN.</li>
+        <li><b>Preset controller</b>: Pitch, Filter, Level, Bend +, Browse (rotazione), Wet/Dry e leve FX vanno ancora collegati con LEARN.</li>
       </ul>
     </section>
   </main>
 
   <footer>
     <span>CD FlyDJ Track Pro · scheda tecnica v1.0 · ottobre 2026</span>
-    <span>Numark, Mixtrack, Serato e Pioneer sono marchi dei rispettivi proprietari.</span>
+    <span>Tutti i marchi citati da terzi appartengono ai rispettivi proprietari.</span>
   </footer>
 </div>

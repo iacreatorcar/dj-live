@@ -18,7 +18,7 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 #topBar{position:absolute;top:12px;left:12px;display:flex;gap:8px;z-index:3}
 .badge{background:var(--pink);font:800 11px Unbounded;padding:4px 8px;border-radius:6px}
 .brand{background:rgba(0,0,0,.5);font:500 11px Unbounded;padding:4px 8px;border-radius:6px}
-/* Chat: mostra SOLO eventi reali ricevuti da TikTok */
+/* Chat: mostra SOLO eventi reali ricevuti da live */
 #chat{position:absolute;left:12px;top:46px;width:70%;max-height:30%;overflow:hidden;display:flex;flex-direction:column;
   justify-content:flex-end;gap:4px;z-index:3;mask-image:linear-gradient(transparent,#000 30%)}
 .msg{font-size:13px;line-height:1.35;background:rgba(0,0,0,.4);padding:4px 8px;border-radius:10px;width:fit-content;animation:in .25s ease-out}
@@ -99,7 +99,7 @@ input[type=range]{width:100%;accent-color:var(--pink)}
     </div>
 
     <div class="sec">
-      <h2>Eventi TikTok reali</h2>
+      <h2>Eventi live reali</h2>
       <div class="st" id="wsSt">Non collegato</div>
       <input type="text" id="wsUrl" value="ws://localhost:21213">
       <button class="wide" id="btnWs">Collega eventi</button>
@@ -123,7 +123,7 @@ const GIFTS = [
   {id:'galassia',emoji:'🌌',name:'Galassia',r:40,color:'#25f4ee'},
   {id:'razzo',emoji:'🚀',name:'Razzo',r:34,color:'#9d7bff'},
 ];
-// Nomi dei regali TikTok (inglese) -> regalo locale
+// Nomi dei regali live (inglese) -> regalo locale
 const ALIASES = {rose:'rosa',heart:'cuore',donut:'ciambella',lion:'leone',galaxy:'galassia',rocket:'razzo'};
 // Console virtuale sullo schermo: 2 righe x 4 pad
 const PAD_DEFS = [
@@ -394,7 +394,7 @@ $('btnMidi').onclick=async()=>{const st=$('midiSt');
     bind();acc.onstatechange=bind;
   }catch(err){st.className='st err';st.textContent='Accesso negato: '+err.message}};
 
-/* ================= EVENTI TIKTOK REALI (WebSocket) =================
+/* ================= EVENTI LIVE REALI (WebSocket) =================
    Formato JSON atteso da un ponte locale (TikFinity, Streamer.bot o script Node):
    {"type":"gift","user":"nome","gift":"Rose","count":1}
    {"type":"chat","user":"nome","text":"ciao"}                                    */

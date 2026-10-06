@@ -1,7 +1,7 @@
 {
   "name": "CD FlyDJ Track Pro",
   "short_name": "FlyDJ",
-  "description": "Console DJ CD FlyDJ Track Pro per Numark Mixtrack Pro FX",
+  "description": "Console DJ CD FlyDJ Track Pro per controller FX-2",
   "start_url": "dj-live.html",
   "scope": "./",
   "display": "fullscreen",

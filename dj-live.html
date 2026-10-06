@@ -191,7 +191,7 @@ body.learn #learnbar{display:flex}
 #toast.show{opacity:1}
 @media (max-width:980px){html,body{overflow:auto;height:auto}main{grid-template-columns:1fr}#srch{width:100%;margin-left:0}}
 
-/* Sound Color FX + display Beat FX: esistono sempre, visibili solo nelle skin Pioneer */
+/* Color FX + display Beat FX: esistono sempre, visibili solo nelle skin Club e All-in-One */
 .scfx,.fxlcd{display:none}
 .scfx{align-items:center;gap:6px;padding-right:8px;margin-right:2px;border-right:1px solid var(--line)}
 .scfx .sct{font:800 9px Unbounded;color:var(--dim);letter-spacing:.1em;line-height:1.3}
@@ -201,40 +201,40 @@ body.learn #learnbar{display:flex}
   min-width:150px;white-space:nowrap;text-shadow:0 0 6px #2f9cff80;line-height:1.35}
 .fxlcd b{color:#7cc4ff;font-weight:700}
 
-/* ===== SKIN PIONEER (DJM-750MK2 e XDJ): metallo scuro, manopole argento, CUE arancio, ON blu tondo ===== */
-body.pioneer{--bg:#0a0a0b;--panel:#18191b;--panel2:#222326;--line:#36383c;--a:#33a6ff;--b:#ff8a1f;--cue:#ff7a1a}
-body.pioneer header{background:linear-gradient(180deg,#1d1e21,#121314)}
-body.pioneer .mixer{background:linear-gradient(180deg,#2a2b2f,#17181a 60%,#141517);border-color:#45474c;box-shadow:inset 0 1px 0 #ffffff14}
-body.pioneer .strip{background:linear-gradient(180deg,#1f2023,#18191b);border:1px solid #303236;border-radius:4px}
-body.pioneer .dial{background:radial-gradient(circle at 38% 30%,#fbfbfb,#b9bbc0 38%,#6c6e73 66%,#2b2c30 74%);border:2px solid #0c0c0d;box-shadow:0 2px 3px #000a,0 0 0 3px #1a1b1e}
-body.pioneer .dial i{background:#111;width:3px;height:42%;top:2px}
-body.pioneer .k small{color:#c9cbd0;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-body.pioneer .pfl{--c:#ff7a1a;background:#2a1a0e;border-color:#ff7a1a66;color:#ff9a4a}
-body.pioneer .pfl.on{background:#ff7a1a;color:#000;box-shadow:0 0 12px #ff7a1a}
-body.pioneer .vu{width:10px;position:relative;background:#050505}
-body.pioneer .vu:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 5px,#050505 5px 7px);pointer-events:none}
-body.pioneer .vu i{background:linear-gradient(0deg,#2fd35a 62%,#ffb21a 80%,#ff2a2a 92%)}
-body.pioneer .scfx,body.pioneer .fxlcd{display:flex} body.pioneer .fxlcd{display:block}
-body.pioneer .scfx .scb button.on{background:#e9eef6;color:#000;box-shadow:0 0 10px #ffffff80}
-body.pioneer .fxu{background:linear-gradient(180deg,#1e1f22,#151618);flex-wrap:nowrap;padding:5px 8px}
-body.pioneer .fxu .fxt{display:grid;grid-template-columns:repeat(3,auto);gap:3px}
-body.pioneer .fxu .fxt button{background:#101113;border-color:#34363a;border-radius:3px;padding:4px 6px;font-size:9px}
-body.pioneer .fxlcd{min-width:118px;font-size:10px;padding:4px 6px}
-body.pioneer .strip .dial{width:28px;height:28px} body.pioneer .strip{gap:2px}
-body.pioneer .fxu .fxt button.on{background:#0d2238;color:#cfe8ff;border-color:#2f9cff;box-shadow:0 0 8px #2f9cff80}
-body.pioneer .fxon{width:46px;height:46px;flex:none;border-radius:50%;padding:0;background:#0b1626;border:2px solid #2f6fe0;color:#9cc8ff;font-size:10px}
-body.pioneer .fxon.on{background:radial-gradient(circle,#8fd0ff,#2f9cff 60%,#1b5fd0);color:#00122a;box-shadow:0 0 18px #2f9cff,0 0 4px #fff inset}
-body.pioneer .tr2 .cue{--c:#ff7a1a;color:#ff9a4a;border-color:#ff7a1a66}
-body.pioneer .tr2 .cue.on{background:#ff7a1a;color:#000}
-body.pioneer .tr2 .play{--c:#2fd35a}
-body.pioneer .tr2 .play.on{background:#2fd35a;color:#000;box-shadow:0 0 12px #2fd35a99}
-/* XDJ: deck in stile all-in-one Pioneer (cornice argento, pad in gomma illuminati) */
-body[data-skin=xdj] .deck{background:linear-gradient(180deg,#1c1d20,#121315);border:1px solid #3c3e43;border-top:3px solid #9a9ca2}
-body[data-skin=xdj] .pad{background:#141518;border-color:#2b2d31;border-radius:6px;height:40px}
-body[data-skin=xdj] .pad.set{background:color-mix(in srgb,var(--pc) 30%,#111);box-shadow:0 0 10px color-mix(in srgb,var(--pc) 60%,transparent),inset 0 -3px 0 var(--pc)}
-body[data-skin=xdj] .ptabs button.on{border-bottom-color:#ff7a1a}
-body[data-skin=xdj] .bp{border-radius:6px}
-body[data-skin=djm] .deck{border-top-color:#9a9ca2}
+/* ===== SKIN METAL (Club Mixer e All-in-One): metallo scuro, manopole argento, CUE arancio, ON blu tondo ===== */
+body.metal{--bg:#0a0a0b;--panel:#18191b;--panel2:#222326;--line:#36383c;--a:#33a6ff;--b:#ff8a1f;--cue:#ff7a1a}
+body.metal header{background:linear-gradient(180deg,#1d1e21,#121314)}
+body.metal .mixer{background:linear-gradient(180deg,#2a2b2f,#17181a 60%,#141517);border-color:#45474c;box-shadow:inset 0 1px 0 #ffffff14}
+body.metal .strip{background:linear-gradient(180deg,#1f2023,#18191b);border:1px solid #303236;border-radius:4px}
+body.metal .dial{background:radial-gradient(circle at 38% 30%,#fbfbfb,#b9bbc0 38%,#6c6e73 66%,#2b2c30 74%);border:2px solid #0c0c0d;box-shadow:0 2px 3px #000a,0 0 0 3px #1a1b1e}
+body.metal .dial i{background:#111;width:3px;height:42%;top:2px}
+body.metal .k small{color:#c9cbd0;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+body.metal .pfl{--c:#ff7a1a;background:#2a1a0e;border-color:#ff7a1a66;color:#ff9a4a}
+body.metal .pfl.on{background:#ff7a1a;color:#000;box-shadow:0 0 12px #ff7a1a}
+body.metal .vu{width:10px;position:relative;background:#050505}
+body.metal .vu:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 5px,#050505 5px 7px);pointer-events:none}
+body.metal .vu i{background:linear-gradient(0deg,#2fd35a 62%,#ffb21a 80%,#ff2a2a 92%)}
+body.metal .scfx,body.metal .fxlcd{display:flex} body.metal .fxlcd{display:block}
+body.metal .scfx .scb button.on{background:#e9eef6;color:#000;box-shadow:0 0 10px #ffffff80}
+body.metal .fxu{background:linear-gradient(180deg,#1e1f22,#151618);flex-wrap:nowrap;padding:5px 8px}
+body.metal .fxu .fxt{display:grid;grid-template-columns:repeat(3,auto);gap:3px}
+body.metal .fxu .fxt button{background:#101113;border-color:#34363a;border-radius:3px;padding:4px 6px;font-size:9px}
+body.metal .fxlcd{min-width:118px;font-size:10px;padding:4px 6px}
+body.metal .strip .dial{width:28px;height:28px} body.metal .strip{gap:2px}
+body.metal .fxu .fxt button.on{background:#0d2238;color:#cfe8ff;border-color:#2f9cff;box-shadow:0 0 8px #2f9cff80}
+body.metal .fxon{width:46px;height:46px;flex:none;border-radius:50%;padding:0;background:#0b1626;border:2px solid #2f6fe0;color:#9cc8ff;font-size:10px}
+body.metal .fxon.on{background:radial-gradient(circle,#8fd0ff,#2f9cff 60%,#1b5fd0);color:#00122a;box-shadow:0 0 18px #2f9cff,0 0 4px #fff inset}
+body.metal .tr2 .cue{--c:#ff7a1a;color:#ff9a4a;border-color:#ff7a1a66}
+body.metal .tr2 .cue.on{background:#ff7a1a;color:#000}
+body.metal .tr2 .play{--c:#2fd35a}
+body.metal .tr2 .play.on{background:#2fd35a;color:#000;box-shadow:0 0 12px #2fd35a99}
+/* ALL-IN-ONE: deck in stile console (cornice argento, pad in gomma illuminati) */
+body[data-skin=allin] .deck{background:linear-gradient(180deg,#1c1d20,#121315);border:1px solid #3c3e43;border-top:3px solid #9a9ca2}
+body[data-skin=allin] .pad{background:#141518;border-color:#2b2d31;border-radius:6px;height:40px}
+body[data-skin=allin] .pad.set{background:color-mix(in srgb,var(--pc) 30%,#111);box-shadow:0 0 10px color-mix(in srgb,var(--pc) 60%,transparent),inset 0 -3px 0 var(--pc)}
+body[data-skin=allin] .ptabs button.on{border-bottom-color:#ff7a1a}
+body[data-skin=allin] .bp{border-radius:6px}
+body[data-skin=club] .deck{border-top-color:#9a9ca2}
 
 /* ===== MODALITÀ TABLET (Samsung Tab come schermo touch della console) ===== */
 body.tablet button{min-height:38px}
@@ -252,11 +252,11 @@ body.tablet .bpm{font-size:26px}
 <body>
 <header>
   <div class="brand"><b>CD FLY<span>DJ</span></b><small>TRACK PRO</small></div>
-  <button id="bRec" style="--c:#e5322b" title="Registra il mix in WAV (come il pannello REC di Serato)">● REC</button>
+  <button id="bRec" style="--c:#e5322b" title="Registra il mix in WAV (come il pannello REC dei software DJ)">● REC</button>
   <button id="bAg" class="on" style="--c:#3cc85a" title="Auto Gain: porta tutti i brani allo stesso volume percepito">AUTO GAIN</button>
-  <button id="bSet" style="--c:#c9cbd0" title="Impostazioni: skin Pioneer, modalità tablet, schermo intero">⚙</button>
-  <button id="bLearn" style="--c:#f5d020" title="MIDI LEARN (come OSC/Serato): tocca un comando sullo schermo, poi muovi quello sul controller. ESC per uscire">🎯 LEARN</button>
-  <button id="bMidi" style="--c:#3cc85a" title="Controller MIDI (Mixtrack Pro FX) e uscita cuffia">🎛 MIDI</button>
+  <button id="bSet" style="--c:#c9cbd0" title="Impostazioni: skin Club e All-in-One, modalità tablet, schermo intero">⚙</button>
+  <button id="bLearn" style="--c:#f5d020" title="MIDI LEARN (come OSC): tocca un comando sullo schermo, poi muovi quello sul controller. ESC per uscire">🎯 LEARN</button>
+  <button id="bMidi" style="--c:#3cc85a" title="Controller MIDI (controller FX-2) e uscita cuffia">🎛 MIDI</button>
   <button id="bVoice" style="--c:#e04fa0" title="DEMO – comandi a voce (“play 1”, “stop 2”…). Solo dimostrativo: con la musica alta il microfono sente le casse">🎤 VOCE DEMO</button>
   <button id="hands" style="--c:#25f4ee" title="Controllo con le mani via webcam: pizzica pollice e indice per toccare">✋ MANI</button>
   <button id="tFx" class="on" title="Mostra/nascondi FX e sampler">FX</button>
@@ -283,7 +283,7 @@ body.tablet .bpm{font-size:26px}
 <section id="fxp">
 <div class="fxu c-A" id="fxuA"></div>
 <div class="fxc">
-  <div class="scfx"><span class="sct">SOUND<br>COLOR FX</span>
+  <div class="scfx"><span class="sct">COLOR<br>FX</span>
     <div class="scb" id="scb"><button data-t="DUB ECHO">DUB ECHO</button><button data-t="SWEEP">SWEEP</button><button data-t="NOISE">NOISE</button><button data-t="FILTER" class="on">FILTER</button></div>
     <div class="k" id="kParam" style="--c:#111"></div></div>
   <span class="fxh">SAMPLER</span><div class="smp" id="smp"></div><div class="k" id="kSmp" style="--c:#3cc85a"></div>
@@ -312,9 +312,9 @@ body.tablet .bpm{font-size:26px}
   <h3>Impostazioni <button id="sClose">✕</button></h3>
   <h4>SKIN / TEMPLATE</h4>
   <div class="skins">
-    <button class="skin" data-skin="serato"><b>CD FlyDJ · Serato</b><span>Layout software stile Serato DJ Pro, mixer essenziale con filtro.</span></button>
-    <button class="skin" data-skin="djm"><b>Pioneer DJM-750MK2</b><span>Mixer metallo, manopole argento TRIM/HI/MID/LOW/COLOR, CUE arancio, Sound Color FX, Beat FX con display e ON blu.</span></button>
-    <button class="skin" data-skin="xdj"><b>Pioneer XDJ / DDJ</b><span>All-in-one Pioneer: jog stile CDJ con anello LED, pad in gomma illuminati, play verde e cue arancio, tasti effetti Beat FX.</span></button>
+    <button class="skin" data-skin="studio"><b>CD FlyDJ · Studio</b><span>Layout software classico, mixer essenziale con filtro.</span></button>
+    <button class="skin" data-skin="club"><b>Club Mixer</b><span>Mixer metallo, manopole argento TRIM/HI/MID/LOW/COLOR, CUE arancio, Color FX, Beat FX con display e ON blu.</span></button>
+    <button class="skin" data-skin="allin"><b>All-in-One</b><span>Console all-in-one: jog da lettore club con anello LED, pad in gomma illuminati, play verde e cue arancio, tasti effetti Beat FX.</span></button>
   </div>
   <h4>MANI (WEBCAM)</h4>
   <label class="tog">Anteprima camera <select id="sCam" style="flex:none;width:auto"><option value="s">Piccola</option><option value="m">Media</option><option value="l">Grande</option></select></label>
@@ -332,7 +332,7 @@ body.tablet .bpm{font-size:26px}
 <aside id="midi" class="drawer">
   <h3>Controller MIDI <button id="mClose">✕</button></h3>
   <div class="mst" id="mStat">MIDI non ancora attivo.</div>
-  <div class="mrow"><button id="mWiz" style="--c:#2f6fe0" class="on">CONFIGURAZIONE GUIDATA</button><button id="mExp">ESPORTA</button><button id="mImp">IMPORTA</button><button id="mClr">AZZERA</button><button id="mPre" style="--c:#3cc85a" class="on">PRESET MIXTRACK</button><button id="mMix" style="--c:#f5b84a" class="on">🎚 RIFAI MIXER E FX</button><button id="mFull" style="--c:#e04fa0" class="on">🎛 MAPPA COMPLETA (tranne mixer)</button><input type="file" id="mImpF" accept=".json,application/json" hidden></div>
+  <div class="mrow"><button id="mWiz" style="--c:#2f6fe0" class="on">CONFIGURAZIONE GUIDATA</button><button id="mExp">ESPORTA</button><button id="mImp">IMPORTA</button><button id="mClr">AZZERA</button><button id="mPre" style="--c:#3cc85a" class="on">PRESET CONTROLLER</button><button id="mMix" style="--c:#f5b84a" class="on">🎚 RIFAI MIXER E FX</button><button id="mFull" style="--c:#e04fa0" class="on">🎛 MAPPA COMPLETA (tranne mixer)</button><input type="file" id="mImpF" accept=".json,application/json" hidden></div>
   <div id="wiz"><div id="wProg"></div><div id="wText"></div><div id="wHint"></div>
     <div class="mrow"><button id="wBack">← INDIETRO</button><button id="wSkip">SALTA</button><button id="wStop">STOP</button></div></div>
   <h4>ASSEGNA UN SINGOLO COMANDO</h4>
@@ -340,7 +340,7 @@ body.tablet .bpm{font-size:26px}
   <div class="mst">Scegli la funzione, premi ASSEGNA e muovi il comando sul controller (utile per combinazioni con Shift o per correggere un passo).</div>
   <h4>USCITA AUDIO E CUFFIA</h4>
   <div class="mrow"><button id="aTest" style="--c:#3cc85a" class="on">🔊 TEST AUDIO</button><button id="aScan">RILEVA SCHEDE AUDIO</button><select id="aOut"><option value="">Uscita predefinita</option></select></div>
-  <div class="mst" id="aStat">Scegli l'uscita del Mixtrack: master su canali 1-2, cuffia (CUE) su 3-4.</div>
+  <div class="mst" id="aStat">Scegli l'uscita del controller: master su canali 1-2, cuffia (CUE) su 3-4.</div>
   <h4>MONITOR MESSAGGI</h4>
   <pre id="mLog">Muovi un comando del controller…</pre>
 </aside>
@@ -356,15 +356,15 @@ const master=ac.createGain(), limiter=ac.createDynamicsCompressor(), mAn=ac.crea
 limiter.threshold.value=-2; limiter.ratio.value=15; limiter.attack.value=.003; limiter.release.value=.1; // anti-clipping
 master.connect(limiter).connect(mAn);
 const cueBus=ac.createGain(), merger=ac.createChannelMerger(4), mSplit=ac.createChannelSplitter(2), cSplit=ac.createChannelSplitter(2);
-/* Cuffia = CUE MIX software (sul Mixtrack la manopola CUE MIX è MIDI, il mix lo fa il programma come Serato):
+/* Cuffia = CUE MIX software (sul controller la manopola CUE MIX è MIDI, il mix lo fa il programma come i software DJ):
    0 = solo canali con CUE acceso, 1 = solo master, 0,5 = metà e metà (predefinito: senti sempre qualcosa) */
 const hpBus=ac.createGain(), cueMixC=ac.createGain(), cueMixM=ac.createGain();
 cueBus.connect(cueMixC).connect(hpBus);
 function setCueMix(v){const t=ac.currentTime;cueMixC.gain.setTargetAtTime(Math.cos(v*Math.PI/2),t,.02);cueMixM.gain.setTargetAtTime(Math.sin(v*Math.PI/2),t,.02)}
 setCueMix(.5);
 let CUE_OK=false;
-/* Scheda a 4 canali (come quella del Mixtrack): master su 1-2, cuffia su 3-4. Altrimenti stereo normale. */
-/* Master + cuffia separati quando l'uscita è una scheda DJ: scelta da te (es. Mixtrack) oppure scheda predefinita
+/* Scheda a 4 canali (come quella del controller): master su 1-2, cuffia su 3-4. Altrimenti stereo normale. */
+/* Master + cuffia separati quando l'uscita è una scheda DJ: scelta da te (es. controller) oppure scheda predefinita
    con esattamente 4 canali (tipico dei controller: 1-2 casse, 3-4 cuffia). Casse PC 5.1/7.1 = stereo normale. */
 let SINK_CHOSEN=false;
 function route(){
@@ -386,7 +386,7 @@ const fmt=t=>{t=Math.max(0,t);const m=Math.floor(t/60),s=Math.floor(t%60*10)/10;
 const fmtS=t=>Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const G=v=>{const g=ac.createGain();g.gain.value=v;return g};
-let QUANT=true,FOCUS=null,AUTO_GAIN=true,SKIN='serato';
+let QUANT=true,FOCUS=null,AUTO_GAIN=true,SKIN='studio';
 $('qz').onclick=()=>{QUANT=!QUANT;$('qz').classList.toggle('on',QUANT)};
 let tt;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200)}
 
@@ -470,7 +470,7 @@ function hornVoice(t0,pitch){
     o.frequency.setValueAtTime(pitch*m*1.06,t0);o.frequency.exponentialRampToValueAtTime(pitch*m,t0+.07);o.connect(g).connect(ws);o.start(t0);osc.push(o)});
   ws.connect(bp).connect(out);out.connect(hornBus);out.gain.setValueAtTime(0,t0);out.gain.linearRampToValueAtTime(1,t0+.012);
   return {stop(t){out.gain.cancelScheduledValues(t);out.gain.setValueAtTime(1,t);out.gain.linearRampToValueAtTime(0,t+.05);
-    osc.forEach(o=>o.stop(t+.08));osc[0].onended=()=>{out.disconnect()}}}}                    // Sound Color FX attivo (comune ai canali, come sul DJM)
+    osc.forEach(o=>o.stop(t+.08));osc[0].onended=()=>{out.disconnect()}}}}                    // Color FX attivo (comune ai canali, come su un mixer da club)
 class DeckFx{
   constructor(d){
     this.d=d;this.on=false;this.hold=false;this.type='Echo';this.div=4;this.amt=.5;   // ogni deck ha il suo effetto
@@ -517,7 +517,7 @@ function refreshFx(){
   for(const d of [A,B]){const u=$('fxu'+d.id);
     u.querySelectorAll('.fxt button').forEach(b=>b.classList.toggle('on',b.dataset.t===d.fx.type));
     u.querySelector('.fxd').textContent=DIVL[d.fx.div];u.querySelector('.fxon').classList.toggle('on',d.fx.active);fxLcd(d)}}
-function fxLcd(d){const e=$('fxu'+d.id)?.querySelector('.fxlcd');if(!e)return;      // display Beat FX stile DJM
+function fxLcd(d){const e=$('fxu'+d.id)?.querySelector('.fxlcd');if(!e)return;      // display Beat FX stile club
   const txt=`<b>CH${d.num}</b> ${d.fx.type.toUpperCase()}<br>${DIVL[d.fx.div]} BEAT · ${d.buf?(d.bpm*d.base).toFixed(1):'---.-'} BPM${d.fx.active?' · ON':''}`;
   if(e.innerHTML!==txt)e.innerHTML=txt}
 /* I comandi FX centrali del controller (tipo, BEATS, WET) agiscono sui deck con la leva FX accesa; se nessuna è accesa, su entrambi */
@@ -581,7 +581,7 @@ class Deck{
     this.el=$('deck'+id);this.el.innerHTML=deckHTML(num);
     this.fx=new DeckFx(this);
     // LEVEL -> EQ -> filtro -> FX -> (cuffia pre-fader) -> volume -> fader cuts -> crossfader -> master
-    // Sound Color FX (DJM): DUB ECHO, SWEEP, NOISE, FILTER sulla manopola COLOR del canale
+    // Color FX (club): DUB ECHO, SWEEP, NOISE, FILTER sulla manopola COLOR del canale
     this.scIn=G(1);this.scDry=G(1);this.scOut=G(1);this.scIn.connect(this.scDry).connect(this.scOut);
     this.bp=bq('bandpass',1000,2);this.bpW=G(0);this.scIn.connect(this.bp).connect(this.bpW).connect(this.scOut);
     this.nz=ac.createBufferSource();this.nz.buffer=NOISE;this.nz.loop=true;this.nf=bq('lowpass',20000,.7);this.nW=G(0);
@@ -698,7 +698,7 @@ class Deck{
       this.cuePt=this.offset=this.stutPt=this.grid;                    // cue automatico sulla prima battuta
       this.q('.title').textContent=t.title;this.slipA=null;
       this.applyGain();this.cacheOverview();this.fx.update();
-      const i=LIB.prepare.indexOf(t.id);if(i>=0)LIB.prepare.splice(i,1); // come Serato: caricato = tolto da Prepare
+      const i=LIB.prepare.indexOf(t.id);if(i>=0)LIB.prepare.splice(i,1); // come i software DJ: caricato = tolto da Prepare
       const o=this.other;
       if(o.track===t&&o.buf){                                          // Instant Doubles: stessa posizione, tempo, loop e sync
         this.setRange(o.range);this.q('.rate').value=(o.base-1)*100;this.setRate(o.base,false,true);
@@ -712,7 +712,7 @@ class Deck{
     }catch(e){this.q('.title').textContent='Formato non supportato: '+t.title}
   }
   applyGain(){const t=this.track;this.tg.gain.setTargetAtTime(AUTO_GAIN&&t&&t.agDb!=null?Math.pow(10,t.agDb/20):1,ac.currentTime,.05)}
-  /* Slip (Serato): durante scratch/hot cue/loop la traccia "continua" in silenzio; alla fine si riprende da lì */
+  /* Slip (software DJ): durante scratch/hot cue/loop la traccia "continua" in silenzio; alla fine si riprende da lì */
   slipStart(){if(this.slip&&this.playing&&!this.slipA)this.slipA={p:this.pos(),t:ac.currentTime}}
   slipEnd(){const a=this.slipA;if(!a)return false;this.slipA=null;
     if(this.playing){const when=ac.currentTime+LEAD;this.nudge=0;this.rate=this.base;this.startSource(a.p+(when-a.t)*this.base,when)}
@@ -785,7 +785,7 @@ class Deck{
     if(del){this.cues[i]=null;this.useShift();return this.renderPads()}
     const c=this.cues[i];
     if(c==null){const p=this.pos();this.cues[i]=QUANT?clamp(this.snap(p),0,this.buf.duration-.01):p;return this.renderPads()}
-    // Da fermo (come Serato): suona dall'hot cue finché tieni premuto; al rilascio torna lì in pausa. Play mentre tieni = continua.
+    // Da fermo (come i software DJ): suona dall'hot cue finché tieni premuto; al rilascio torna lì in pausa. Play mentre tieni = continua.
     if(!this.playing){if(this.loop&&(c<this.loop.s||c>=this.loop.e))this.loop=null;this.offset=c;this.hcHold={c};return this.play()}
     // Con Quantize il salto conserva la posizione dentro la battuta: il beat (e il sync) non si perde
     this.slipStart();
@@ -886,7 +886,7 @@ class Deck{
   /* ---- Pad ---- */
   setMode(m){this.rollOff();this.cutStop();this.mode=m;
     this.q('.ptabs').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.m===m));this.renderPads()}
-  /* Pagina 2 "EXTRA" (SHIFT + tasto modalità sul controller): funzioni che il Mixtrack non ha come tasti */
+  /* Pagina 2 "EXTRA" (SHIFT + tasto modalità sul controller): funzioni che il controller non ha come tasti */
   toggleExtra(){if(this.mode==='extra')this.setMode(this.prevMode||'cue');else{this.prevMode=this.mode;this.setMode('extra')}
     toast(`Deck ${this.num}: ${this.mode==='extra'?'pagina 2 EXTRA (voce, musica, bassi, horn · sync, slip, censor, tap)':'pagina 1'}`)}
   padPress(i,down,s){
@@ -956,8 +956,8 @@ class Deck{
   censorOff(){const c=this.cens;if(!c)return;this.cens=null;try{c.src.stop()}catch(e){}setTimeout(()=>{c.src.disconnect();c.g.disconnect()},50);
     const when=ac.currentTime+LEAD;this.nudge=0;this.rate=this.base;this.startSource(c.p+(when-c.t)*this.base,when);this.refresh()}
   togglePfl(){this.pfl=!this.pfl;this.pflG.gain.setTargetAtTime(this.pfl?1:0,ac.currentTime,.01);
-    if(this.pfl&&!CUE_OK)toast('Cuffia separata non attiva: scegli l’uscita del Mixtrack nel pannello 🎛 MIDI');this.refresh()}
-  /* Manopola COLOR: applica il Sound Color FX scelto (sinistra/destra hanno effetti diversi, come sul DJM) */
+    if(this.pfl&&!CUE_OK)toast('Cuffia separata non attiva: scegli l’uscita del controller nel pannello 🎛 MIDI');this.refresh()}
+  /* Manopola COLOR: applica il Color FX scelto (sinistra/destra hanno effetti diversi, come su un mixer da club) */
   applyColor(){
     const v=this.colorV,a=Math.abs(v),ty=SCFX.type,p=SCFX.param,t=ac.currentTime,on=a>.02,S=(g,x)=>g.gain.setTargetAtTime(x,t,.02);
     this.setFilter(ty==='FILTER'?v:ty==='NOISE'?v*.6:0);
@@ -1077,8 +1077,8 @@ function drawWave(d,c){ // waveform scorrevole a colori + beat grid; scala in te
   x.fillStyle='#f5b84a';x.fillRect(X(d.cuePt)-DPR,0,2*DPR,h);
   x.fillStyle='#fff';x.fillRect(w/2-DPR,0,2*DPR,h);
 }
-/* Jog stile CDJ/XDJ: anello argento, piatto nero, anello LED con la posizione e display centrale */
-function drawCdj(d){
+/* Jog da lettore club: anello argento, piatto nero, anello LED con la posizione e display centrale */
+function drawClubJog(d){
   const c=d.pl,x=c.getContext('2d'),W=c.width,H=c.height,r=Math.min(W,H)/2;x.clearRect(0,0,W,H);
   const p=d.buf?d.pos():0,a=p/SPIN*Math.PI*2,dur=d.buf?d.buf.duration:1;
   x.save();x.translate(W/2,H/2);
@@ -1104,13 +1104,13 @@ function drawCdj(d){
   x.restore();
 }
 function drawPlatter(d){
-  if(SKIN==='xdj')return drawCdj(d);
+  if(SKIN==='allin')return drawClubJog(d);
   const c=d.pl,x=c.getContext('2d'),W=c.width,H=c.height,r=Math.min(W,H)/2;x.clearRect(0,0,W,H);
   const p=d.buf?d.pos():0,a=p/SPIN*Math.PI*2;
   x.save();x.translate(W/2,H/2);
   // anello esterno: avanzamento brano (arancio se in loop)
   x.lineWidth=r*.05;x.strokeStyle='#26262b';x.beginPath();x.arc(0,0,r*.95,0,7);x.stroke();
-  // ultimi 20 s: l'anello lampeggia rosso (Track End Warning di Serato)
+  // ultimi 20 s: l'anello lampeggia rosso (Track End Warning dei software DJ)
   const ending=d.buf&&d.buf.duration>60&&d.buf.duration-p<20&&Math.floor(performance.now()/300)%2===0;
   if(d.buf){x.strokeStyle=ending?'#e5322b':d.loop?'#f5b84a':d.color;x.beginPath();x.arc(0,0,r*.95,-Math.PI/2,-Math.PI/2+p/d.buf.duration*Math.PI*2);x.stroke()}
   // disco con solchi (si illumina quando lo tieni in scratch)
@@ -1234,22 +1234,22 @@ libEl.ondragleave=()=>libEl.classList.remove('drop');
 libEl.ondrop=e=>{e.preventDefault();libEl.classList.remove('drop');addFiles(e.dataTransfer.files)};
 addEventListener('dragover',e=>e.preventDefault());addEventListener('drop',e=>e.preventDefault());
 
-/* ===================== MIDI: NUMARK MIXTRACK PRO FX =====================
+/* ===================== MIDI: CONTROLLER FX-2 =====================
    Il manuale non pubblica i codici MIDI: li impariamo con la configurazione guidata
    (premi il comando che chiede lo schermo) e li salviamo nel browser.               */
 const JOG_DEF=1000;                     // tacche per giro del jog finché non si fa la taratura
 const MIDI={acc:null,outs:[],map:{},shift:{A:false,B:false},learn:null,led:{},log:[],msb:{}};
 try{MIDI.map=JSON.parse(localStorage.getItem('djfly.midimap')||'{}')}catch(e){MIDI.map={}}
-/* Preset incorporato Numark Mixtrack Pro FX (dalla mappatura fatta sul controller reale, 03/10/2026).
-   Il Mixtrack usa gli stessi codici per i due deck: deck 1 = canale 0 (pad canale 4), deck 2 = canale 1 (pad canale 5).
+/* Preset incorporato controller FX-2 (dalla mappatura fatta sul controller reale, 03/10/2026).
+   Il controller usa gli stessi codici per i due deck: deck 1 = canale 0 (pad canale 4), deck 2 = canale 1 (pad canale 5).
    Si carica da solo quando colleghi il controller e non c'è una mappa salvata. */
-/* Mappa del Mixtrack Pro FX reale, unione di 3 sessioni di mappatura (03-04/10/2026), dove le sessioni non coincidono
-   ha prevalso lo schema Numark identico sui due deck:
+/* Mappa del controller FX-2 reale, unione di 3 sessioni di mappatura (03-04/10/2026), dove le sessioni non coincidono
+   ha prevalso lo schema Controller identico sui due deck:
    - mixer canale: LEVEL 22 · HI 23 · MID 24 · LOW 25 · FILTER 26 · VOLUME 28 · CUE cuffia nota 27
    - PITCH = CC 9 + CC 41 (14 bit, alta precisione) · SYNC nota 32 · jog = CC 6 + tocco nota 6
    - leve FX: CC 4 sul canale 8 (deck 1) e 9 (deck 2) · tasti FX note 0-5 sui canali 8/9 · BEATS encoder CC 5 ch 8 */
-/* Preset Numark Mixtrack Pro FX: mappatura completa fatta sul controller reale (04/10/2026), mixer + tasti + SHIFT + scene pad. */
-const PRESET_MIXTRACK=(()=>{const r={"c:0:9":["A.pitch","abs"],"c:0:22":["A.level","abs"],"c:0:23":["A.high","abs"],"c:0:24":["A.mid","abs"],"c:0:25":["A.low","abs"],"c:0:26":["A.filter","abs"],"c:0:28":["A.vol","abs"],"n:0:27":["A.pfl","btn"],"c:8:4":["A.fxUp","ccnz"],"c:1:9":["B.pitch","abs"],"c:1:22":["B.level","abs"],"c:1:23":["B.high","abs"],"c:1:24":["B.mid","abs"],"c:1:25":["B.low","abs"],"c:1:26":["B.filter","abs"],"c:1:28":["B.vol","abs"],"n:1:27":["B.pfl","btn"],"c:9:4":["B.fxUp","ccnz"],"c:15:8":["xf","abs"],"c:14:35":["master","abs"],"c:8:5":["beats","rel"],"n:8:0":["fx:HPF","btn"],"n:8:1":["fx:LPF","btn"],"n:8:2":["fx:Flanger","btn"],"n:9:3":["fx:Echo","btn"],"n:9:4":["fx:Reverb","btn"],"n:9:5":["fx:Phaser","btn"],"n:0:0":["A.play","btn"],"n:0:1":["A.cue","btn"],"n:0:2":["A.sync","btn"],"n:0:32":["A.shift","btn"],"n:0:7":["A.scratch","btn"],"n:0:12":["A.bendDn","btn"],"n:0:11":["A.bendUp","btn"],"n:0:6":["A.jogTouch","btn"],"c:0:6":["A.jog","rel"],"n:4:64":["A.loop","btn"],"n:4:52":["A.loopHalf","btn"],"n:4:53":["A.loopDouble","btn"],"n:15:2":["A.load","btn"],"n:4:24":["A.stutter","btn"],"n:4:25":["A.prev","btn"],"n:4:26":["A.back","btn"],"n:4:27":["A.fwd","btn"],"n:0:4":["A.play@s","btn"],"n:0:5":["A.cue@s","btn"],"n:0:3":["A.sync@s","btn"],"n:0:8":["A.scratch@s","btn"],"n:0:44":["A.bendDn@s","btn"],"n:0:43":["A.bendUp@s","btn"],"n:4:65":["A.loop@s","btn"],"n:4:54":["A.loopHalf@s","btn"],"n:4:55":["A.loopDouble@s","btn"],"n:4:32":["A.stutter@s","btn"],"n:4:33":["A.prev@s","btn"],"n:4:34":["A.back@s","btn"],"n:4:35":["A.fwd@s","btn"],"n:4:0":["A.modeCue","btn"],"n:4:20":["A.pad1","btn"],"n:4:21":["A.pad2","btn"],"n:4:22":["A.pad3","btn"],"n:4:23":["A.pad4","btn"],"n:4:2":["A.modeCue@s","btn"],"n:4:13":["A.scene:cue:2@s","btn"],"n:4:31":["A.modeLoop@s","btn"],"n:4:28":["A.pad1@s","btn"],"n:4:29":["A.pad2@s","btn"],"n:4:30":["A.pad3@s","btn"],"n:4:7":["A.modeFader","btn"],"n:4:11":["A.modeSampler","btn"],"n:4:15":["A.scene:sampler:3","btn"],"n:1:0":["B.play","btn"],"n:1:1":["B.cue","btn"],"n:1:2":["B.sync","btn"],"n:1:32":["B.shift","btn"],"n:1:7":["B.scratch","btn"],"n:1:12":["B.bendDn","btn"],"n:1:11":["B.bendUp","btn"],"n:1:6":["B.jogTouch","btn"],"c:1:6":["B.jog","rel"],"n:5:64":["B.loop","btn"],"n:5:52":["B.loopHalf","btn"],"n:5:53":["B.loopDouble","btn"],"n:5:24":["B.stutter","btn"],"n:5:25":["B.prev","btn"],"n:5:26":["B.back","btn"],"n:5:27":["B.fwd","btn"],"n:1:4":["B.play@s","btn"],"n:1:5":["B.cue@s","btn"],"n:1:3":["B.sync@s","btn"],"n:1:8":["B.scratch@s","btn"],"n:1:44":["B.bendDn@s","btn"],"n:1:43":["B.bendUp@s","btn"],"n:5:65":["B.loop@s","btn"],"n:5:54":["B.loopHalf@s","btn"],"n:5:55":["B.loopDouble@s","btn"],"n:5:32":["B.stutter@s","btn"],"n:5:33":["B.prev@s","btn"],"n:5:34":["B.back@s","btn"],"n:5:35":["B.fwd@s","btn"],"n:5:0":["B.modeCue","btn"],"n:5:20":["B.pad1","btn"],"n:5:21":["B.pad2","btn"],"n:5:22":["B.pad3","btn"],"n:5:23":["B.pad4","btn"],"n:5:2":["B.modeCue@s","btn"],"n:5:13":["B.scene:cue:2@s","btn"],"n:5:31":["B.modeLoop@s","btn"],"n:5:28":["B.pad1@s","btn"],"n:5:29":["B.pad2@s","btn"],"n:5:30":["B.pad3@s","btn"],"n:5:7":["B.modeFader","btn"],"n:5:11":["B.modeSampler","btn"],"n:5:15":["B.scene:sampler:3","btn"],"n:15:3":["B.load","btn"],"c:15:0":["browse","rel"],"c:15:1":["browse@s","rel"],"n:15:7":["browsePress","btn"],"n:8:9":["tap","btn"],"n:9:9":["tap@s","btn"]},m={};for(const k in r)m[k]={a:r[k][0],m:r[k][1]};
+/* Preset controller FX-2: mappatura completa fatta sul controller reale (04/10/2026), mixer + tasti + SHIFT + scene pad. */
+const PRESET_CTRL=(()=>{const r={"c:0:9":["A.pitch","abs"],"c:0:22":["A.level","abs"],"c:0:23":["A.high","abs"],"c:0:24":["A.mid","abs"],"c:0:25":["A.low","abs"],"c:0:26":["A.filter","abs"],"c:0:28":["A.vol","abs"],"n:0:27":["A.pfl","btn"],"c:8:4":["A.fxUp","ccnz"],"c:1:9":["B.pitch","abs"],"c:1:22":["B.level","abs"],"c:1:23":["B.high","abs"],"c:1:24":["B.mid","abs"],"c:1:25":["B.low","abs"],"c:1:26":["B.filter","abs"],"c:1:28":["B.vol","abs"],"n:1:27":["B.pfl","btn"],"c:9:4":["B.fxUp","ccnz"],"c:15:8":["xf","abs"],"c:14:35":["master","abs"],"c:8:5":["beats","rel"],"n:8:0":["fx:HPF","btn"],"n:8:1":["fx:LPF","btn"],"n:8:2":["fx:Flanger","btn"],"n:9:3":["fx:Echo","btn"],"n:9:4":["fx:Reverb","btn"],"n:9:5":["fx:Phaser","btn"],"n:0:0":["A.play","btn"],"n:0:1":["A.cue","btn"],"n:0:2":["A.sync","btn"],"n:0:32":["A.shift","btn"],"n:0:7":["A.scratch","btn"],"n:0:12":["A.bendDn","btn"],"n:0:11":["A.bendUp","btn"],"n:0:6":["A.jogTouch","btn"],"c:0:6":["A.jog","rel"],"n:4:64":["A.loop","btn"],"n:4:52":["A.loopHalf","btn"],"n:4:53":["A.loopDouble","btn"],"n:15:2":["A.load","btn"],"n:4:24":["A.stutter","btn"],"n:4:25":["A.prev","btn"],"n:4:26":["A.back","btn"],"n:4:27":["A.fwd","btn"],"n:0:4":["A.play@s","btn"],"n:0:5":["A.cue@s","btn"],"n:0:3":["A.sync@s","btn"],"n:0:8":["A.scratch@s","btn"],"n:0:44":["A.bendDn@s","btn"],"n:0:43":["A.bendUp@s","btn"],"n:4:65":["A.loop@s","btn"],"n:4:54":["A.loopHalf@s","btn"],"n:4:55":["A.loopDouble@s","btn"],"n:4:32":["A.stutter@s","btn"],"n:4:33":["A.prev@s","btn"],"n:4:34":["A.back@s","btn"],"n:4:35":["A.fwd@s","btn"],"n:4:0":["A.modeCue","btn"],"n:4:20":["A.pad1","btn"],"n:4:21":["A.pad2","btn"],"n:4:22":["A.pad3","btn"],"n:4:23":["A.pad4","btn"],"n:4:2":["A.modeCue@s","btn"],"n:4:13":["A.scene:cue:2@s","btn"],"n:4:31":["A.modeLoop@s","btn"],"n:4:28":["A.pad1@s","btn"],"n:4:29":["A.pad2@s","btn"],"n:4:30":["A.pad3@s","btn"],"n:4:7":["A.modeFader","btn"],"n:4:11":["A.modeSampler","btn"],"n:4:15":["A.scene:sampler:3","btn"],"n:1:0":["B.play","btn"],"n:1:1":["B.cue","btn"],"n:1:2":["B.sync","btn"],"n:1:32":["B.shift","btn"],"n:1:7":["B.scratch","btn"],"n:1:12":["B.bendDn","btn"],"n:1:11":["B.bendUp","btn"],"n:1:6":["B.jogTouch","btn"],"c:1:6":["B.jog","rel"],"n:5:64":["B.loop","btn"],"n:5:52":["B.loopHalf","btn"],"n:5:53":["B.loopDouble","btn"],"n:5:24":["B.stutter","btn"],"n:5:25":["B.prev","btn"],"n:5:26":["B.back","btn"],"n:5:27":["B.fwd","btn"],"n:1:4":["B.play@s","btn"],"n:1:5":["B.cue@s","btn"],"n:1:3":["B.sync@s","btn"],"n:1:8":["B.scratch@s","btn"],"n:1:44":["B.bendDn@s","btn"],"n:1:43":["B.bendUp@s","btn"],"n:5:65":["B.loop@s","btn"],"n:5:54":["B.loopHalf@s","btn"],"n:5:55":["B.loopDouble@s","btn"],"n:5:32":["B.stutter@s","btn"],"n:5:33":["B.prev@s","btn"],"n:5:34":["B.back@s","btn"],"n:5:35":["B.fwd@s","btn"],"n:5:0":["B.modeCue","btn"],"n:5:20":["B.pad1","btn"],"n:5:21":["B.pad2","btn"],"n:5:22":["B.pad3","btn"],"n:5:23":["B.pad4","btn"],"n:5:2":["B.modeCue@s","btn"],"n:5:13":["B.scene:cue:2@s","btn"],"n:5:31":["B.modeLoop@s","btn"],"n:5:28":["B.pad1@s","btn"],"n:5:29":["B.pad2@s","btn"],"n:5:30":["B.pad3@s","btn"],"n:5:7":["B.modeFader","btn"],"n:5:11":["B.modeSampler","btn"],"n:5:15":["B.scene:sampler:3","btn"],"n:15:3":["B.load","btn"],"c:15:0":["browse","rel"],"c:15:1":["browse@s","rel"],"n:15:7":["browsePress","btn"],"n:8:9":["tap","btn"],"n:9:9":["tap@s","btn"]},m={};for(const k in r)m[k]={a:r[k][0],m:r[k][1]};
   m.$pitchDir={A:1,B:1};m.$jog=2149;m.$jogSign=1;return m})();
 const saveMap=()=>{try{localStorage.setItem('djfly.midimap',JSON.stringify(MIDI.map))}catch(e){}};
 const rel=v=>v>=1&&v<=40?v:v>=88&&v<=127?v-128:v-64;        // encoder relativi: complemento a 2 oppure offset 64
@@ -1268,13 +1268,16 @@ function midiPorts(){
   MIDI.outs=outs.filter(o=>!/microsoft|wavetable/i.test(o.name)&&ins.some(i=>{const a=norm(i.name),b=norm(o.name);return a===b||a.includes(b.slice(0,8))||b.includes(a.slice(0,8))}));
   MIDI.led={};
   // preset incorporato: si carica da solo se la mappa è vuota; quando esce una versione nuova del preset viene proposta una volta
-  const PRESET_VER='3',isMix=ins.some(i=>/mixtrack|numark/i.test(i.name));let pv=null;try{pv=localStorage.getItem('djfly.presetVer')}catch(e){}
-  if(PRESET_MIXTRACK&&isMix&&(!Object.keys(MIDI.map).some(k=>k[0]!=='$')||(pv!==PRESET_VER&&confirm('È disponibile la mappa aggiornata del Numark Mixtrack Pro FX (mixer, pitch, sync, leve FX corretti).\n\nOK = usa la mappa nuova · Annulla = tieni la tua')))){
-    MIDI.map=JSON.parse(JSON.stringify(PRESET_MIXTRACK));saveMap();toast('Numark Mixtrack Pro FX: mappa caricata')}
+  // il controller è quello già usato con questo programma (nome salvato), oppure il primo collegato
+  let known=null;try{known=localStorage.getItem('djfly.ctrlName')}catch(e){}
+  const ctrl=ins.find(i=>i.name===known)||ins[0];if(ctrl)try{localStorage.setItem('djfly.ctrlName',ctrl.name)}catch(e){}
+  const PRESET_VER='3',isMix=!!ctrl;let pv=null;try{pv=localStorage.getItem('djfly.presetVer')}catch(e){}
+  if(PRESET_CTRL&&isMix&&(!Object.keys(MIDI.map).some(k=>k[0]!=='$')||(pv!==PRESET_VER&&confirm('È disponibile la mappa aggiornata del controller FX-2 (mixer, pitch, sync, leve FX corretti).\n\nOK = usa la mappa nuova · Annulla = tieni la tua')))){
+    MIDI.map=JSON.parse(JSON.stringify(PRESET_CTRL));saveMap();toast('controller FX-2: mappa caricata')}
   if(isMix)try{localStorage.setItem('djfly.presetVer',PRESET_VER)}catch(e){}
   const n=Object.keys(MIDI.map).filter(k=>k[0]!=='$').length;
   mStat(ins.length?`<b>Collegato:</b> ${ins.map(i=>esc(i.name)).join(', ')}<br>${n?`Mappa salvata: ${n} comandi.`:'Nessuna mappa: avvia la <b>configurazione guidata</b>.'} ${MIDI.outs.length?'Luci attive.':''}`
-    :'Nessun controller trovato. Collega il Mixtrack via USB (si rileva da solo).',ins.length>0);
+    :'Nessun controller trovato. Collega il controller via USB (si rileva da solo).',ins.length>0);
   $('bMidi').classList.toggle('on',ins.length>0)}
 function mStat(h,ok){const e=$('mStat');e.innerHTML=h;e.classList.toggle('ok',!!ok)}
 function onMidi(e){
@@ -1470,7 +1473,7 @@ function buildFullSteps(){
   return S}
 function wizStartFull(){
   const keep=Object.entries(MIDI.map).filter(([k,m])=>k[0]==='$'||MIXER_KEEP.has(m.a));
-  if(!confirm(`Mappatura completa del Mixtrack (tranne il mixer).\n\nRestano i ${keep.filter(([k])=>k[0]!=='$').length} comandi del mixer già mappati; tutto il resto viene rifatto passo per passo, con SHIFT e le 4 scene dei pad.\n\nIniziare?`))return;
+  if(!confirm(`Mappatura completa del controller (tranne il mixer).\n\nRestano i ${keep.filter(([k])=>k[0]!=='$').length} comandi del mixer già mappati; tutto il resto viene rifatto passo per passo, con SHIFT e le 4 scene dei pad.\n\nIniziare?`))return;
   MIDI.map=Object.fromEntries(keep);delete MIDI.map.$shift;MIDI.led={};
   MIDI.learn={steps:buildFullSteps(),i:-1,skip:{},done:new Set(),same:new Set(),cand:null,tm:null,sum:0};
   $('wiz').classList.add('open');wizNext('Segui lo schermo · se un comando non esiste premi SALTA · INDIETRO per rifare un passo')}
@@ -1503,10 +1506,10 @@ function wizBack(){const L=MIDI.learn;if(!L)return;clearTimeout(L.tm);L.cand=nul
   do L.i=Math.max(0,L.i-1);while(L.i>0&&L.steps[L.i].mir&&L.skip[L.steps[L.i].mir]);wizShow()}
 function wizEnd(done){const L=MIDI.learn;if(L)clearTimeout(L.tm);MIDI.learn=null;saveMap();MIDI.led={};$('wiz').classList.remove('open');
   if(MIDI.acc)midiPorts();
-  if(done){exportMap();toast('Configurazione completata e salvata anche come file (djfly-mixtrack-pro-fx.json)')}
+  if(done){exportMap();toast('Configurazione completata e salvata anche come file (djfly-controller-map.json)')}
   else toast('Configurazione interrotta: salvato quanto fatto, la prossima volta riprendi da qui')}
 function exportMap(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(MIDI.map,null,1)],{type:'application/json'}));
-  a.download='djfly-mixtrack-pro-fx.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+  a.download='djfly-controller-map.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function learnFeed(key,kind,raw,val){
   const L=MIDI.learn,st=L.steps[L.i];if(!st)return;
   const mapped=MIDI.map[key],press=(kind==='btn'&&val===1)||(kind==='cc'&&(st.kind==='rel'||raw===127));
@@ -1572,9 +1575,9 @@ $('mClr').onclick=()=>{if(!confirm('Cancellare la mappa MIDI salvata?'))return;M
 $('mExp').onclick=exportMap;
 $('mFull').onclick=async()=>{if(!await midiInit())return;if(!MIDI.acc.inputs.size)return toast('Collega prima il controller');wizStartFull()};
 $('mMix').onclick=async()=>{if(!await midiInit())return;if(!MIDI.acc.inputs.size)return toast('Collega prima il controller');wizStartMixer()};
-$('mPre').onclick=()=>{if(Object.keys(MIDI.map).some(k=>k[0]!=='$')&&!confirm('Sostituire la mappa attuale con il preset Numark Mixtrack Pro FX incorporato?'))return;
-  MIDI.map=JSON.parse(JSON.stringify(PRESET_MIXTRACK));saveMap();MIDI.led={};if(MIDI.acc)midiPorts();if(LEARN.on)learnMarks();
-  toast('Preset Mixtrack Pro FX caricato ('+Object.keys(MIDI.map).filter(k=>k[0]!=='$').length+' comandi)')};
+$('mPre').onclick=()=>{if(Object.keys(MIDI.map).some(k=>k[0]!=='$')&&!confirm('Sostituire la mappa attuale con il preset controller FX-2 incorporato?'))return;
+  MIDI.map=JSON.parse(JSON.stringify(PRESET_CTRL));saveMap();MIDI.led={};if(MIDI.acc)midiPorts();if(LEARN.on)learnMarks();
+  toast('Preset controller FX-2 caricato ('+Object.keys(MIDI.map).filter(k=>k[0]!=='$').length+' comandi)')};
 $('mImp').onclick=()=>$('mImpF').click();
 $('mImpF').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
   try{MIDI.map=JSON.parse(await f.text());saveMap();if(MIDI.acc)midiPorts();toast('Mappa importata')}catch(err){toast('File non valido')}};
@@ -1593,13 +1596,15 @@ $('mOneGo').onclick=async()=>{if(!await midiInit())return;
 $('mOneGo').classList.add('on');
 navigator.permissions?.query({name:'midi'}).then(p=>{if(p.state==='granted')midiInit()}).catch(()=>{});
 
-/* ---------- Uscita audio (scheda del Mixtrack) ---------- */
+/* ---------- Uscita audio (scheda del controller) ---------- */
 $('aScan').onclick=async()=>{
   if(!ac.setSinkId){$('aStat').textContent='Questo browser non permette di scegliere l’uscita: usa Chrome o Edge aggiornati.';return}
   try{const s=await navigator.mediaDevices.getUserMedia({audio:true});s.getTracks().forEach(t=>t.stop())}catch(e){}   // serve solo per leggere i nomi delle schede
   const devs=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='audiooutput');
   $('aOut').innerHTML='<option value="">Uscita predefinita</option>'+devs.map(d=>`<option value="${esc(d.deviceId)}">${esc(d.label||'Scheda audio')}</option>`).join('');
-  const mt=devs.find(d=>/mixtrack|numark/i.test(d.label));if(mt){$('aOut').value=mt.deviceId;$('aOut').onchange()}};
+  let cn='';try{cn=(localStorage.getItem('djfly.ctrlName')||'').toLowerCase().split(/\W+/).find(w=>w.length>3)||''}catch(e){}
+  const mt=cn&&devs.find(d=>d.label.toLowerCase().includes(cn));       // scheda audio dello stesso controller MIDI
+  if(mt){$('aOut').value=mt.deviceId;$('aOut').onchange()}};
 $('aOut').onchange=async()=>{
   try{await ac.setSinkId($('aOut').value);SINK_CHOSEN=!!$('aOut').value;route();
     $('aStat').innerHTML=CUE_OK?'<b>Cuffia separata attiva</b>: casse = canali 1-2, cuffia = 3-4. Dosa con CUE MIX (in alto) e premi 🔊 TEST.':
@@ -1658,7 +1663,7 @@ knob($('kSmp'),{min:0,max:1,val:.8,def:.8,label:'Vol',on:v=>SAMPLER.g.gain.setTa
 $('tFx').onclick=()=>$('tFx').classList.toggle('on',!document.body.classList.toggle('nofx'));
 $('tLib').onclick=()=>$('tLib').classList.toggle('on',!document.body.classList.toggle('nolib'));
 
-/* ===================== SOUND COLOR FX (pannello DJM) ===================== */
+/* ===================== COLOR FX (pannello club) ===================== */
 const setScfx=t=>{SCFX.type=SCFX.type===t&&t!=='FILTER'?'FILTER':t;          // ripremere il tasto acceso = torna a FILTER
   document.querySelectorAll('#scb button').forEach(b=>b.classList.toggle('on',b.dataset.t===SCFX.type));A.applyColor();B.applyColor()};
 $('scb').onclick=e=>{const b=e.target.closest('button');if(b)setScfx(b.dataset.t)};
@@ -1668,13 +1673,13 @@ setInterval(()=>{fxLcd(A);fxLcd(B)},500);
 /* ===================== IMPOSTAZIONI: skin, tablet, schermo ===================== */
 const SET=(()=>{try{return JSON.parse(localStorage.getItem('djfly.settings')||'{}')}catch(e){return {}}})();
 const saveSet=()=>{try{localStorage.setItem('djfly.settings',JSON.stringify(SET))}catch(e){}};
-const LABELS={serato:['Level','Treble','Mid','Bass','Filter'],pioneer:['Trim','Hi','Mid','Low','Color']};
+const LABELS={studio:['Level','Treble','Mid','Bass','Filter'],metal:['Trim','Hi','Mid','Low','Color']};
 function applySkin(s){
-  SKIN=s;SET.skin=s;saveSet();document.body.dataset.skin=s;document.body.classList.toggle('pioneer',s!=='serato');
+  SKIN=s;SET.skin=s;saveSet();document.body.dataset.skin=s;document.body.classList.toggle('metal',s!=='studio');
   document.querySelectorAll('.skin').forEach(b=>b.classList.toggle('on',b.dataset.skin===s));
-  const L=LABELS[s==='serato'?'serato':'pioneer'];
+  const L=LABELS[s==='studio'?'studio':'metal'];
   document.querySelectorAll('.strip').forEach(st=>['.klev','.khi','.kmid','.klow','.kflt'].forEach((c,i)=>{const e=st.querySelector(c+' small');if(e)e.textContent=L[i]}));
-  if(s==='serato'&&SCFX.type!=='FILTER')setScfx('FILTER');   // nella skin Serato la manopola resta un filtro
+  if(s==='studio'&&SCFX.type!=='FILTER')setScfx('FILTER');   // nella skin software DJ la manopola resta un filtro
   refreshFx()}
 document.querySelectorAll('.skin').forEach(b=>b.onclick=()=>applySkin(b.dataset.skin));
 function applyTablet(on){SET.tablet=on;saveSet();document.body.classList.toggle('tablet',on);$('sTab').checked=on}
@@ -1740,12 +1745,12 @@ $('bVoice').onclick=()=>{ac.resume();voiceSet(!VOICE.on)};
 $('sVoice').onchange=e=>voiceSet(e.target.checked);
 $('sCamPos').value=SET.camPos||'tr';$('sCamPos').onchange=e=>{SET.camPos=e.target.value;saveSet()};
 $('sDwell').checked=SET.dwell!==false;$('sDwell').onchange=e=>{SET.dwell=e.target.checked;saveSet()};
-applySkin(SET.skin||'serato');
+applySkin({serato:'studio',djm:'club',xdj:'allin'}[SET.skin]||SET.skin||'studio');
 applyTablet(SET.tablet??matchMedia('(pointer:coarse)').matches);   // su tablet/telefono parte già in modalità touch
 
-/* ===================== MIDI LEARN (come OSC / Serato MIDI Assign) =====================
+/* ===================== MIDI LEARN (come OSC / MIDI Assign) =====================
    Ogni comando a schermo sa a quale funzione corrisponde (data-midi). In LEARN: tocchi il comando,
-   muovi quello sul Mixtrack → collegati e salvati. Tocca il piatto e poi appoggia la mano e gira il jog. */
+   muovi quello sul controller → collegati e salvati. Tocca il piatto e poi appoggia la mano e gira il jog. */
 function tagMidi(){
   const T=(el,a)=>{if(el)el.dataset.midi=a};
   for(const d of [A,B]){const q=s=>d.el.querySelector(s),p=d.id+'.';
@@ -1770,7 +1775,7 @@ async function learnToggle(on=!LEARN.on){
   LEARN.on=on;document.body.classList.toggle('learn',on);$('bLearn').classList.toggle('on',on);
   LEARN.el?.classList.remove('learning');LEARN.el=null;MIDI.one=null;
   $('midi').classList.remove('open');$('setp').classList.remove('open');
-  $('learnTxt').textContent=MIDI.acc&&MIDI.acc.inputs.size?'🎯 LEARN: tocca un comando sullo schermo':'🎯 LEARN: collega il Mixtrack (nessun controller trovato)';
+  $('learnTxt').textContent=MIDI.acc&&MIDI.acc.inputs.size?'🎯 LEARN: tocca un comando sullo schermo':'🎯 LEARN: collega il controller (nessun controller trovato)';
   if(on)learnMarks();else{saveMap();toast('Mappa salvata ('+Object.keys(MIDI.map).filter(k=>k[0]!=='$').length+' comandi)')}}
 $('bLearn').onclick=()=>learnToggle();
 $('learnEnd').onclick=()=>learnToggle(false);
@@ -1781,7 +1786,7 @@ $('learnDel').onclick=()=>{const el=LEARN.el;if(!el)return toast('Tocca prima un
 const learnPick=e=>{if(!LEARN.on)return;const el=e.target.closest?.('[data-midi]');if(!el||e.target.closest('#learnbar'))return;
   e.preventDefault();e.stopPropagation();if(e.type!=='pointerdown')return;
   LEARN.el?.classList.remove('learning');LEARN.el=el;el.classList.add('learning');MIDI.one=el.dataset.midi;
-  $('learnTxt').textContent=`🎯 ${actName(el.dataset.midi)} → ${el.dataset.midi.endsWith('.jog')?'appoggia la mano sul piatto e giralo':'muovi/premi il comando sul Mixtrack'}`};
+  $('learnTxt').textContent=`🎯 ${actName(el.dataset.midi)} → ${el.dataset.midi.endsWith('.jog')?'appoggia la mano sul piatto e giralo':'muovi/premi il comando sul controller'}`};
 ['pointerdown','mousedown','touchstart','click','dblclick','input','wheel'].forEach(t=>document.addEventListener(t,learnPick,{capture:true,passive:false}));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&LEARN.on)learnToggle(false)});
 function learnDone(a,key){if(!LEARN.on)return;learnMarks();
@@ -1824,7 +1829,7 @@ $('bRec').onclick=async()=>{
   a.download=`CD-FlyDJ-mix-${d.toISOString().slice(0,16).replace(/[:T]/g,'-')}.wav`;a.click();REC.chunks=[];
   toast('Mix salvato: '+a.download)};
 
-/* ===================== TASTIERA (scorciatoie di Serato DJ Pro) =====================
+/* ===================== TASTIERA (scorciatoie di software DJ) =====================
    Sinistra / destra:  W / S play · I / K cue · Q,U / A,J censor · T / G bend − · Y / H bend + · R,E / F,D tempo ±
    1-4 / 6-9 hot cue (Shift = cancella) · Alt+1-4 / Alt+6-9 auto loop · Ctrl+Alt = roll
    [ / '  loop on/off (Alt = reloop) · O / L loop in · P / ; loop out · Alt+E,R / Alt+D,F ricerca
